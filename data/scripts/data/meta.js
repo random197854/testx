@@ -317,6 +317,12 @@ var ARTIST = {
         jap: "絵かきの甲殻類",
         japAlias: []
     },
+    SANAI_AKIRA:{
+        eng: "Sanai Akira",
+        engAlias: ["Sanai", "Akira Sanai", "Akira"],
+        jap: "才乃麗",
+        japAlias: ["才乃", "麗"]
+    },
     IGNORE:{
         eng: "",
         engAlias: [],
@@ -11880,7 +11886,7 @@ var CHAR = {
                 TAG.TANNED_SKIN, TAG.BIG_BREASTS
             ],
             gender:"female",
-            originalCharacter:true,
+            originalCharacter:false,
             artist:ARTIST.KAGAMI_HIROTAKA,
             cv:CV.GOMANJIRU
         }
@@ -11902,6 +11908,44 @@ var CHAR = {
             originalCharacter:true,
             artist:ARTIST.YOU_MARU,
             cv:CV.SAKURANO_KOHANE
+        }
+    },
+    CHIKUBUSHIMA_ISANA:{
+        base:{
+            name:{
+                eng:"Chikubushima Isana",
+                engAlias:["Chikubushima", "Isana Chikubushima", "Isana"],
+                jap:"竹生島イサナ",
+                japAlias:["竹生島", "イサナ"]
+            },
+            tags:[
+                TAG.CYAN_HAIR, TAG.LONG_HAIR,
+                TAG.UNNATURAL_SCLERA, TAG.CYAN_EYES,
+                TAG.UNNATURAL_SKIN, TAG.HUGE_BREASTS
+            ],
+            gender:"female",
+            originalCharacter:true,
+            artist:ARTIST.SANAI_AKIRA,
+            cv:CV.OUKAWA_MIO
+        }
+    },
+    SUMINOE_MADARA:{
+        base:{
+            name:{
+                eng:"Suminoe Madara",
+                engAlias:["Suminoe", "Madara Suminoe", "Madara"],
+                jap:"墨之江まだら",
+                japAlias:["墨之江", "まだら"]
+            },
+            tags:[
+                TAG.BLOND_HAIR, TAG.BROWN_HAIR, TAG.MULTICOLORED_HAIR, TAG.SHORT_HAIR,
+                TAG.VIOLET_EYES,
+                TAG.LIGHT_SKIN, TAG.SMALL_BREASTS
+            ],
+            gender:"female",
+            originalCharacter:true,
+            artist:ARTIST.JUMBO_YAMA,
+            cv:CV.MOMOZONO_ANRI
         }
     },
 
@@ -33752,6 +33796,89 @@ var SCENE = {
                 TAG.ANAL_SEX, TAG.NAKADASHI, TAG.AHEGAO
             ],
             location:[TAG.BEDROOM, TAG.PRIVATE],
+            misc:[]
+        },
+        ignoredCharacterTags:[]
+    },
+    "1021_1":{
+        character:CHAR.MARDOLL,
+        tags:{
+            female:[
+                TAG.THIGH_HIGH_STOCKINGS, TAG.BREASTS_OUT,
+                TAG.FUTANARI, TAG.SEX_ENGINE, TAG.AHEGAO
+            ],
+            male:[],
+            location:[TAG.BROTHEL, TAG.PRIVATE],
+            misc:[TAG.NO_SEX]
+        },
+        ignoredCharacterTags:[],
+        nextScene:"1021_1"
+    },
+    "1021_2":{
+        character:CHAR.MARDOLL,
+        tags:{
+            female:[
+                TAG.THIGH_HIGH_STOCKINGS, TAG.BREASTS_OUT,
+                TAG.FUTANARI, TAG.BLOWJOB, TAG.BUKKAKE, TAG.CUM_IN_MOUTH, TAG.VAGINAL_SEX, TAG.NAKADASHI
+            ],
+            male:[],
+            location:[TAG.BROTHEL, TAG.PRIVATE],
+            misc:[]
+        },
+        ignoredCharacterTags:[]
+    },
+    "1022_1":{
+        character:[CHAR.KAMIMURA_MAIKA, CHAR.FUUMA_KOTAROU],
+        form:["young", null],
+        tags:{
+            female:[
+                TAG.TAIMANIN_OUTFIT, TAG.BREASTS_OUT, TAG.NIPPLE_PIERCING, TAG.PANTYLESS, TAG.THIGH_HIGH_STOCKINGS, TAG.BODY_WRITING,
+                TAG.VAGINAL_FINGERING, TAG.BLOWJOB, TAG.SQUIRTING, TAG.AHEGAO, TAG.PAIZURI, TAG.BUKKAKE
+            ],
+            male:[],
+            location:[TAG.LOVE_HOTEL, TAG.PRIVATE],
+            misc:[]
+        },
+        ignoredCharacterTags:[],
+        nextScene:"1022_2"
+    },
+    "1022_2":{
+        character:[CHAR.KAMIMURA_MAIKA, CHAR.FUUMA_KOTAROU],
+        form:["young", null],
+        tags:{
+            female:[
+                TAG.TAIMANIN_OUTFIT, TAG.BREASTS_OUT, TAG.NIPPLE_PIERCING, TAG.PANTYLESS, TAG.BODY_WRITING,
+                TAG.VAGINAL_SEX, TAG.BREAST_GROPING, TAG.NAKADASHI, TAG.AHEGAO, TAG.NIPPLE_PINCHING
+            ],
+            male:[],
+            location:[TAG.LOVE_HOTEL, TAG.PRIVATE],
+            misc:[TAG.CUT_IN_XRAY]
+        },
+        ignoredCharacterTags:[]
+    },
+    "1023":{
+        character:CHAR.CHIKUBUSHIMA_ISANA,
+        tags:{
+            female:[
+                TAG.TAIMANIN_OUTFIT, TAG.BREASTS_OUT, TAG.PANTIES_PUSHED_TO_SIDE,
+                TAG.VAGINAL_LEAKAGE, TAG.SQUIRTING, TAG.VAGINAL_SEX, TAG.NAKADASHI
+            ],
+            male:[],
+            location:[TAG.LOVE_HOTEL, TAG.PRIVATE],
+            misc:[]
+        },
+        ignoredCharacterTags:[]
+    },
+    "1024":{
+        character:CHAR.SUMINOE_MADARA,
+        tags:{
+            female:[
+                TAG.TAIMANIN_OUTFIT, TAG.RIPPED_CLOTHING, TAG.BREAST_CUTOUTS, TAG.VAGINAL_CUTOUT, TAG.WOMB_TATTOO,
+                TAG.STANDING_SEX,
+                TAG.SQUIRTING, TAG.VAGINAL_SEX, TAG.NAKADASHI, TAG.AHEGAO
+            ],
+            male:[],
+            location:[TAG.PRISON_CELL, TAG.PRIVATE],
             misc:[]
         },
         ignoredCharacterTags:[]
