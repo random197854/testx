@@ -1,0 +1,1865 @@
+chapterOrder = [];
+storySelect = {
+    id: 0,
+    section: "S01",
+    type: "chapter",
+    part: "A",
+    elements: {
+
+    }
+}
+
+const storySelectObserver = new IntersectionObserver(entries => {
+    for (const entry of entries) {
+        if (entry.isIntersecting) {
+            const elem = entry.target;
+            elem.style.backgroundImage = `url("Story/banner/${elem.getAttribute("lazy")}")`;
+            elem.removeAttribute("lazy");
+            storySelectObserver.unobserve(entry.target);
+        }
+    }
+});
+
+function initStorySelect() {
+    storySelect.elements.section = document.getElementById("story-select-section-select");
+    storySelect.elements.part = document.getElementById("story-select-section-single");
+    storySelect.elements.title = document.getElementById("story-select-chapter-title");
+    storySelect.elements.subtitle = document.getElementById("story-select-section-title");
+    storySelect.elements.epilogue = document.getElementById("story-select-section-epilogue");
+    hideElem(storySelect.elements.part);
+    buildStorySelect();
+
+    if (document.getElementById("story-select-chapter-choices").children.length > 0) {
+        setChapterChoice(document.getElementById("story-select-chapter-choices").children[0]);
+    }
+
+    if (prefs.scene.eng) {
+        storySelect.elements.title.style.fontFamily = "var(--eng-font)";
+    } else {
+        storySelect.elements.title.style.fontFamily = "var(--jp-font)";
+    }
+}
+
+function buildStorySelect() {
+    const chapterChoice = document.getElementById("story-select-chapter-choices");
+    const observer = new IntersectionObserver(entries => {
+        for (const entry of entries) {
+            if (entry.isIntersecting) {
+                const elem = entry.target;
+                elem.style.backgroundImage = `url("Story/banner/${elem.getAttribute("lazy")}")`;
+                elem.removeAttribute("lazy");
+                observer.unobserve(entry.target);
+            }
+        }
+    });
+    for (let chapter of chapterOrder) {
+        if (chapter == null) {
+            continue;
+        }
+        chapter = storyData[chapter];
+        let base = document.createElement("div");
+        base.classList += "chapter-choice text-stroke no-select";
+        if (chapter.type == "chapter") {
+            let chapNameElem = document.createElement("div");
+            chapNameElem.classList += "chapter-choice-name"
+            if (prefs.scene.eng) {
+                chapNameElem.innerText = chapter.engName ?? chapter.japName;
+                chapNameElem.style.fontFamily = "var(--eng-font)";
+            } else {
+                chapNameElem.innerText = chapter.japName;
+                chapNameElem.style.fontFamily = "var(--jp-font)";
+            }
+            let chapNoElem = document.createElement("div");
+            chapNoElem.classList += "chapter-choice-no"
+            chapNoElem.innerText = chapter.chapter
+            base.append(chapNoElem, chapNameElem);
+            base.classList.add("chapter-choice-main");
+        } else {
+            const banner = prefs.scene.eng ? chapter.engBanner ?? chapter.banner : chapter.banner;
+            base.setAttribute("lazy", banner);
+            storySelectObserver.observe(base);
+        }
+        base.setAttribute("storyId", chapter.id);
+        base.setAttribute("storyType", chapter.type);
+        chapterChoice.append(base);
+    }
+}
+
+/**
+ * Used in prefs.js when Translation status is changed.  
+ * Updates text and banner to correct language.
+ */
+function rebuildStorySelect() {
+    const chapterChoice = document.getElementById("story-select-chapter-choices");
+    for (const child of chapterChoice.children) {
+        const chapter = storyData[chapterOrder[Number(child.getAttribute("storyid"))]];
+        if (child.getAttribute("storyType") === "chapter") {
+            const textElem = child.children[1];
+            if (prefs.scene.eng) {
+                textElem.innerText = chapter.engName ?? chapter.japName;
+                textElem.style.fontFamily = "var(--eng-font)";
+            } else {
+                textElem.innerText = chapter.japName;
+                textElem.style.fontFamily = "var(--jp-font)";
+            }
+        } else {
+            const banner = prefs.scene.eng ? chapter.engBanner ?? chapter.banner : chapter.banner;
+            child.setAttribute("lazy", banner);
+            storySelectObserver.observe(child);
+        }
+    }
+    const storySelectData = getSelectedStoryData();
+    if (prefs.scene.eng) {
+        storySelect.elements.title.innerText = storySelectData.engName ?? storySelectData.japName;
+        storySelect.elements.title.style.fontFamily = "var(--eng-font)";
+    } else {
+        storySelect.elements.title.innerText = storySelectData.japName;
+        storySelect.elements.title.style.fontFamily = "var(--jp-font)";
+    }
+}
+
+function getSelectedStoryData() {
+    return storyData[chapterOrder[storySelect.id]];
+}
+
+function getSelectedStoryScripts() {
+    return storyData[chapterOrder[storySelect.id]].SECTIONS[storySelect.section][storySelect.part];
+}
+
+function setChapterChoice(elem) {
+    for (let e of document.getElementsByClassName("chapter-choice-main-selected")) {
+        e.classList.remove("chapter-choice-main-selected");
+    }
+    for (let e of document.getElementsByClassName("chapter-choice-event-selected")) {
+        e.classList.remove("chapter-choice-event-selected");
+    }
+    if (elem.classList.contains("chapter-choice-main")) {
+        elem.classList.add("chapter-choice-main-selected");
+    } else {
+        elem.classList.add("chapter-choice-event-selected");
+    }
+    storySelect.type = elem.getAttribute("storytype");
+    storySelect.id = elem.getAttribute("storyid");
+    storySelect.section = "S01";
+    const storySelectData = getSelectedStoryData();
+    storySelect.elements.title.innerText = prefs.scene.eng ? storySelectData.engName ?? storySelectData.japName : storySelectData.japName;
+    switchStoryMenu()
+}
+
+function setChapterSection(elem) {
+    storySelect.section = elem.getAttribute("section");
+    storySelect.elements.subtitle.innerText = "SECTION " + storySelect.section.substr(1);
+    unhideElem(storySelect.elements.part);
+    unhideElem(storySelect.elements.epilogue);
+    hideElem(storySelect.elements.section);
+}
+
+function setChapterPart(elem) {
+    storySelect.part = elem.getAttribute("part");
+    scene.story.part = storySelect.part;
+    scene.story.section = storySelect.section;
+    scene.story.id = storySelect.id;
+    scene.story.type = storySelect.type;
+    let part = getSelectedStoryScripts();
+    if (prefs.scene.eng && part.TRANSLATIONS != null) {
+        let tls = part.TRANSLATIONS;
+        if (tls.length > 1) {
+            buildTLChoiceBoxStory(tls);
+        } else {
+            loadScript(tls[0].SCRIPT, function () {
+                scene.translated = true;
+                scene.translator = tls[0].TRANSLATOR;
+                scene.language = tls[0].LANGUAGE;
+                scene.type = STORY_RPGX;
+                loadSceneViewer();
+            });
+        }
+    } else {
+        loadScript(part.SCRIPT, function () {
+            scene.type = STORY_RPGX;
+            loadSceneViewer();
+        });
+    }
+}
+
+function tlSelectStory(idx) {
+    killChildren(main.elements.tlChoiceBox);
+    let choice = getSelectedStoryScripts().TRANSLATIONS[idx];
+    loadScript(choice.SCRIPT, function () {
+        scene.translated = true;
+        scene.translator = choice.TRANSLATOR;
+        scene.language = choice.LANGUAGE;
+        if (main.view.current == CG_VIEWER) {
+            exitCGViewMode();
+        }
+        scene.type = STORY_RPGX;
+        loadSceneViewer();
+    });
+}
+
+function buildTLChoiceBoxStory(choices) {
+    killChildren(main.elements.tlChoiceBox);
+    let btnClose = document.createElement("div");
+    btnClose.classList = "tl-choice-close";
+    main.elements.tlChoiceBox.appendChild(btnClose);
+    btnClose.addEventListener("click", closeTLChoiceBox);
+    let idx = 0;
+    for (choice of choices) {
+        createTLChoiceStory(choice.LANGUAGE, choice.TRANSLATOR, idx);
+        idx++
+    }
+    main.elements.tlChoiceBox.style.zIndex = "100";
+    main.elements.tlChoiceBox.style.visibility = "initial";
+}
+
+function createTLChoiceStory(lang, tl, idx) {
+    let btn = document.createElement("div");
+    btn.classList = "styled-btn";
+    btn.style.fontSize = "18px";
+    btn.innerText = lang + " - " + tl;
+    main.elements.tlChoiceBox.appendChild(btn);
+    btn.setAttribute("tlidx", idx);
+    btn.addEventListener("click", function () {
+        tlSelectStory(this.getAttribute("tlidx"));
+    }, false);
+}
+
+function switchStoryMenu() {
+    switch (storySelect.type) {
+        case "chapter":
+        case "story":
+            hideElem(storySelect.elements.part);
+            unhideElem(storySelect.elements.section);
+            break
+        case "raid":
+        case "map":
+        case "mini":
+            storySelect.elements.subtitle.innerText = "SECTION 01";
+            unhideElem(storySelect.elements.part);
+            unhideElem(storySelect.elements.epilogue);
+            hideElem(storySelect.elements.section);
+            break;
+        case "mini2":
+            storySelect.elements.subtitle.innerText = "SECTION 01";
+            unhideElem(storySelect.elements.part);
+            hideElem(storySelect.elements.section);
+            hideElem(storySelect.elements.epilogue);
+        default:
+            console.log("error")
+            break;
+    }
+}
+
+function hideElem(elem) {
+    elem.style.visibility = "hidden";
+}
+
+function unhideElem(elem) {
+    elem.style.visibility = "inherit";
+}
+
+STORY = {
+    TUTORIALV1: {
+        japName: "チュートリアル1",
+        type: "tutorial1",
+        banner: "bnr_common_00009_s.webp",
+        id: -9999
+    },
+    TUTORIALV2: {
+        japName: "チュートリアル2",
+        type: "tutorial2",
+        banner: "bnr_common_00009_s.webp",
+        id: -9998
+    },
+    CHAPTER001: {
+        japName: "反乱",
+        type: "chapter",
+        chapter: 1,
+        id: 0
+    },
+    CHAPTER002: {
+        japName: "独立遊撃隊",
+        type: "chapter",
+        chapter: 2,
+        id: 1
+    },
+    CHAPTER003: {
+        japName: "雨の幽霊城",
+        type: "chapter",
+        chapter: 3,
+        id: 2
+    },
+    CHAPTER004: {
+        japName: "対魔忍OFF",
+        type: "chapter",
+        chapter: 4,
+        id: 3
+    },
+    CHAPTER005: {
+        japName: "異次元紀行へようこそ",
+        type: "chapter",
+        chapter: 5,
+        id: 4
+    },
+    STORYEVENT001: {
+        japName: "雷撃の対魔忍",
+        type: "story",
+        banner: "bnr_ev_story_00001_1_l.webp",
+        id: 5
+    },
+    CHAPTER006: {
+        japName: "蛇にアリーナ",
+        type: "chapter",
+        chapter: 6,
+        id: 6
+    },
+    RAIDEVENT001: {
+        japName: "期末テストと最強の対魔忍",
+        type: "raid",
+        banner: "bnr_ev_raid_00001_1_l.webp",
+        id: 7
+    },
+    STORYEVENT002: {
+        japName: "幻影の魔女",
+        type: "story",
+        banner: "bnr_ev_story_00002_1_l.webp",
+        id: 8
+    },
+    MAPEVENT001: {
+        japName: "忍びの宿命って奴か",
+        type: "map",
+        banner: "bnr_ev_map_00001_1_l.webp",
+        id: 9
+    },
+    CHAPTER007: {
+        japName: "さくらのお小遣い大作戦",
+        type: "chapter",
+        chapter: 7,
+        id: 10
+    },
+    RAIDEVENT002: {
+        japName: "殺人鬼ソニア",
+        type: "raid",
+        banner: "bnr_ev_raid_00002_1_l.webp",
+        id: 11
+    },
+    CHAPTER008: {
+        japName: "イン・ザ・ダーク",
+        type: "chapter",
+        chapter: 8,
+        id: 12
+    },
+    MAPEVENT002: {
+        japName: "悪霊とホワイトクリスマス",
+        type: "map",
+        banner: "bnr_ev_map_00002_1_l.webp",
+        id: 13
+    },
+    STORYEVENT003: {
+        japName: "迎春！猪パニック！",
+        type: "story",
+        banner: "bnr_ev_story_00003_1_l.webp",
+        id: 14
+    },
+    CHAPTER009: {
+        japName: "迷宮",
+        type: "chapter",
+        chapter: 9,
+        id: 15
+    },
+    RAIDEVENT003: {
+        japName: "操られた爆炎",
+        type: "raid",
+        banner: "bnr_ev_raid_00003_1_l.webp",
+        id: 16
+    },
+    STORYEVENT004: {
+        japName: "対魔忍のバレンタインは厳しい",
+        type: "story",
+        banner: "bnr_ev_story_00004_1_l.webp",
+        id: 17
+    },
+    MAPEVENT003: {
+        japName: "稲毛屋のアイス",
+        type: "map",
+        banner: "bnr_ev_map_00003_1_l.webp",
+        id: 18
+    },
+    CHAPTER010: {
+        japName: "ヨミハラ潜入・前編",
+        type: "chapter",
+        chapter: 10,
+        id: 19
+    },
+    RAIDEVENT004: {
+        japName: "錬金術師と狼男",
+        type: "raid",
+        banner: "bnr_ev_raid_00004_1_l.webp",
+        id: 20
+    },
+    MAPEVENT004: {
+        japName: "魔界騎士のお仕事",
+        type: "map",
+        banner: "bnr_ev_map_00004_1_l.webp",
+        id: 21
+    },
+    CHAPTER011: {
+        japName: "ヨミハラ潜入・後編",
+        type: "chapter",
+        chapter: 11,
+        id: 22
+    },
+    STORYEVENT005: {
+        japName: "沙耶NEOを抹殺せよ",
+        type: "story",
+        banner: "bnr_ev_story_00005_1_l.webp",
+        id: 23
+    },
+    APRILFOOLSEVENT001: {
+        japName: "タコスレさん",
+        type: "mini",
+        banner: "bnr_ev_mini_00005_1_l.webp",
+        id: 24
+    },
+    RAIDEVENT005: {
+        japName: "リリムとミーティア",
+        type: "raid",
+        banner: "bnr_ev_raid_00005_1_l.webp",
+        id: 25
+    },
+    CHAPTER012: {
+        japName: "魔女出づりて鬼来たる",
+        type: "chapter",
+        chapter: 12,
+        id: 26
+    },
+    MAPEVENT005: {
+        japName: "忘れられた蛇神",
+        type: "map",
+        banner: "bnr_ev_map_00005_1_l.webp",
+        id: 27
+    },
+    STORYEVENT006: {
+        japName: "まりの大冒険　闇の町の怪紳士",
+        type: "story",
+        banner: "bnr_ev_story_00006_1_l.webp",
+        id: 28
+    },
+    CHAPTER013: {
+        japName: "ゆきかぜの家いったことある？",
+        type: "chapter",
+        chapter: 13,
+        id: 29
+    },
+    RAIDEVENT006: {
+        japName: "ジューンブライド狂想曲",
+        type: "raid",
+        banner: "bnr_ev_raid_00006_1_l.webp",
+        id: 30
+    },
+    MAPEVENT006: {
+        japName: "鮮血の椿姫",
+        type: "map",
+        banner: "bnr_ev_map_00006_1_l.webp",
+        id: 31
+    },
+    CHAPTER014: {
+        japName: "その名は峰舟子",
+        type: "chapter",
+        chapter: 14,
+        id: 32
+    },
+    STORYEVENT007: {
+        japName: "あぶないサマービーチ",
+        type: "story",
+        banner: "bnr_ev_story_00007_1_l.webp",
+        id: 33
+    },
+    RAIDEVENT007: {
+        japName: "毒も過ぎれば薬となる！？",
+        type: "raid",
+        banner: "bnr_ev_raid_00007_1_l.webp",
+        id: 34
+    },
+    CHAPTER015: {
+        japName: "五車の夏休み",
+        type: "chapter",
+        chapter: 15,
+        id: 35
+    },
+    MAPEVENT007: {
+        japName: "楽園の馬超",
+        type: "map",
+        banner: "bnr_ev_map_00007_1_l.webp",
+        id: 36
+    },
+    STORYEVENT008: {
+        japName: "蜘蛛の貴婦人",
+        type: "story",
+        banner: "bnr_ev_story_00008_1_l.webp",
+        id: 37
+    },
+    CHAPTER016: {
+        japName: "忘れられた書斎",
+        type: "chapter",
+        chapter: 16,
+        id: 38
+    },
+    RAIDEVENT008: {
+        japName: "呪いの鏡",
+        type: "raid",
+        banner: "bnr_ev_raid_00008_1_l.webp",
+        id: 39
+    },
+    MAPEVENT008: {
+        japName: "カンザキ食堂",
+        type: "map",
+        banner: "bnr_ev_map_00008_1_l.webp",
+        id: 40
+    },
+    CHAPTER017: {
+        japName: "AD2068",
+        type: "chapter",
+        chapter: 17,
+        id: 41
+    },
+    STORYEVENT009: {
+        japName: "ヨミハラ炎上",
+        type: "story",
+        banner: "bnr_ev_story_00009_1_l.webp",
+        id: 42
+    },
+    RAIDEVENT009: {
+        japName: "恋と友情のハロウィンナイト",
+        type: "raid",
+        banner: "bnr_ev_raid_00009_1_l.webp",
+        id: 43
+    },
+    CHAPTER018: {
+        japName: "アミダハラ監獄",
+        type: "chapter",
+        chapter: 18,
+        id: 44
+    },
+    MAPEVENT009: {
+        japName: "サイボーグ探偵の事件簿",
+        type: "map",
+        banner: "bnr_ev_map_00009_1_l.webp",
+        id: 45
+    },
+    RAIDEVENT010: {
+        japName: "嵐吹く夜に月光る",
+        type: "raid",
+        banner: "bnr_ev_raid_00010_1_l.webp",
+        id: 46
+    },
+    CHAPTER019: {
+        japName: "五車に潜む悪",
+        type: "chapter",
+        chapter: 19,
+        id: 47
+    },
+    STORYEVENT010: {
+        japName: "降ったと思えば土砂降り",
+        type: "story",
+        banner: "bnr_ev_story_00010_1_l.webp",
+        id: 48
+    },
+    MAPEVENT010: {
+        japName: "聖夜の花と危険なオモチャ",
+        type: "map",
+        banner: "bnr_ev_map_00010_1_l.webp",
+        id: 49
+    },
+    RAIDEVENT011: {
+        japName: "早く来い来いお正月",
+        type: "raid",
+        banner: "bnr_ev_raid_00011_1_l.webp",
+        id: 50
+    },
+    STORYEVENT011: {
+        japName: "ふうま天音と秘密の館",
+        type: "story",
+        banner: "bnr_ev_story_00011_1_l.webp",
+        id: 51
+    },
+    CHAPTER020: {
+        japName: "斉藤半次郎",
+        type: "chapter",
+        chapter: 20,
+        id: 52
+    },
+    MAPEVENT011: {
+        japName: "ファイアー＆ペーパー",
+        type: "map",
+        banner: "bnr_ev_map_00011_1_l.webp",
+        id: 53
+    },
+    RAIDEVENT012: {
+        japName: "やっぱり対魔忍のバレンタインは厳しい",
+        type: "raid",
+        banner: "bnr_ev_raid_00012_1_l.webp",
+        id: 54
+    },
+    CHAPTER021: {
+        japName: "魔科医・桐生美琴",
+        type: "chapter",
+        chapter: 21,
+        id: 55
+    },
+    STORYEVENT012: {
+        japName: "期末試験とうさぎの対魔忍",
+        type: "story",
+        banner: "bnr_ev_story_00012_1_l.webp",
+        id: 56
+    },
+    MAPEVENT012: {
+        japName: "そに子、対魔忍になりまうｓ♪",
+        type: "map",
+        banner: "bnr_ev_map_00012_1_l.webp",
+        id: 57
+    },
+    CHAPTER022: {
+        japName: "奪われた石切兼光",
+        type: "chapter",
+        chapter: 22,
+        id: 58
+    },
+    RAIDEVENT013: {
+        japName: "五車に紅がやって来た",
+        type: "raid",
+        banner: "bnr_ev_raid_00013_1_l.webp",
+        id: 59
+    },
+    APRILFOOLSEVENT002: {
+        japName: "まりの突撃取材スクープ！",
+        type: "mini2",
+        banner: "bnr_campaign_00011_l.webp",
+        id: 60
+    },
+    STORYEVENT013: {
+        japName: "魔界騎士と次元の悪魔",
+        type: "story",
+        banner: "bnr_ev_story_00013_1_l.webp",
+        id: 61
+    },
+    CHAPTER023: {
+        japName: "御車の祭殿",
+        type: "chapter",
+        chapter: 23,
+        id: 62
+    },
+    MAPEVENT013: {
+        japName: "不死の兵士",
+        type: "map",
+        banner: "bnr_ev_map_00013_1_l.webp",
+        id: 63
+    },
+    RAIDEVENT014: {
+        japName: "アンブローズ～美しき刺客",
+        type: "raid",
+        banner: "bnr_ev_raid_00014_1_l.webp",
+        id: 64
+    },
+    CHAPTER024: {
+        japName: "センザキ・アンダーグラウンド",
+        type: "chapter",
+        chapter: 24,
+        id: 65
+    },
+    STORYEVENT014: {
+        japName: "ジューンブライド・アゲイン",
+        type: "story",
+        banner: "bnr_ev_story_00014_1_l.webp",
+        id: 66
+    },
+    MAPEVENT014: {
+        japName: "勇者の憂鬱",
+        type: "map",
+        banner: "bnr_ev_map_00014_1_l.webp",
+        id: 67
+    },
+    CHAPTER025: {
+        japName: "闇を疾る者",
+        type: "chapter",
+        chapter: 25,
+        id: 68
+    },
+    RAIDEVENT015: {
+        japName: "渚の魔女と小さな騎士",
+        type: "raid",
+        banner: "bnr_ev_raid_00015_1_l.webp",
+        id: 69
+    },
+    STORYEVENT015: {
+        japName: "怒れる猫と水着のお姉さま",
+        type: "story",
+        banner: "bnr_ev_story_00015_1_l.webp",
+        id: 70
+    },
+    CHAPTER026: {
+        japName: "善悪の彼岸",
+        type: "chapter",
+        chapter: 26,
+        id: 71
+    },
+    MAPEVENT015: {
+        japName: "マスターと補習といいね",
+        type: "map",
+        banner: "bnr_ev_map_00015_1_l.webp",
+        id: 72
+    },
+    RAIDEVENT016: {
+        japName: "ヨミハラ大納涼祭",
+        type: "raid",
+        banner: "bnr_ev_raid_00016_1_l.webp",
+        id: 73
+    },
+    CHAPTER027: {
+        japName: "コーデリアのふたり姫",
+        type: "chapter",
+        chapter: 27,
+        id: 74
+    },
+    STORYEVENT016: {
+        japName: "バニー対魔忍とカジノ・ラビリンス",
+        type: "story",
+        banner: "bnr_ev_story_00016_1_l.webp",
+        id: 75
+    },
+    MAPEVENT016: {
+        japName: "トラジローはじめてのおつかい",
+        type: "map",
+        banner: "bnr_ev_map_00016_1_l.webp",
+        id: 76
+    },
+    CHAPTER028: {
+        japName: "雷神の対魔忍",
+        type: "chapter",
+        chapter: 28,
+        id: 77
+    },
+    RAIDEVENT017: {
+        japName: "キツネの恩返し",
+        type: "raid",
+        banner: "bnr_ev_raid_00017_1_l.webp",
+        id: 78
+    },
+    STORYEVENT017: {
+        japName: "ハロウィンデビル",
+        type: "story",
+        banner: "bnr_ev_story_00017_1_l.webp",
+        id: 79
+    },
+    CHAPTER029: {
+        japName: "悪鬼羅刹と呼ばれた少女",
+        type: "chapter",
+        chapter: 29,
+        id: 80
+    },
+    MAPEVENT017: {
+        japName: "恋の純情爆走ロード",
+        type: "map",
+        banner: "bnr_ev_map_00017_1_l.webp",
+        id: 81
+    },
+    STORYEVENT018: {
+        japName: "ナーサラと愉快な鬼マフィア",
+        type: "story",
+        banner: "bnr_ev_story_00018_1_l.webp",
+        id: 82
+    },
+    CHAPTER030: {
+        japName: "幽霊屋敷の魔術師",
+        type: "chapter",
+        chapter: 30,
+        id: 83
+    },
+    MAPEVENT018: {
+        japName: "ある日のヨミハラ",
+        type: "map",
+        banner: "bnr_ev_map_00018_1_l.webp",
+        id: 84
+    },
+    RAIDEVENT018: {
+        japName: "ヨミハラに雪が降る",
+        type: "raid",
+        banner: "bnr_ev_raid_00018_1_l.webp",
+        id: 85
+    },
+    CHAPTER031: {
+        japName: "二人の魔界騎士",
+        type: "chapter",
+        chapter: 31,
+        id: 86
+    },
+    STORYEVENT019: {
+        japName: "センザキには手を出すな",
+        type: "story",
+        banner: "bnr_ev_story_00019_1_l.webp",
+        id: 87
+    },
+    MAPEVENT019: {
+        japName: "アミダハラの追跡者",
+        type: "map",
+        banner: "bnr_ev_map_00019_1_l.webp",
+        id: 88
+    },
+    CHAPTER032: {
+        japName: "闇との邂逅",
+        type: "chapter",
+        chapter: 32,
+        id: 89
+    },
+    RAIDEVENT019: {
+        japName: "俺とエルフと対魔忍",
+        type: "raid",
+        banner: "bnr_ev_raid_00019_1_l.webp",
+        id: 90
+    },
+    STORYEVENT020: {
+        japName: "チョコとキラー",
+        type: "story",
+        banner: "bnr_ev_story_00020_1_l.webp",
+        id: 91
+    },
+    CHAPTER033: {
+        japName: "激突、東京キングダム",
+        type: "chapter",
+        chapter: 33,
+        id: 92
+    },
+    MAPEVENT020: {
+        japName: "ニートにメイド",
+        type: "map",
+        banner: "bnr_ev_map_00020_1_l.webp",
+        id: 93
+    },
+    RAIDEVENT020: {
+        japName: "Deep Dive",
+        type: "raid",
+        banner: "bnr_ev_raid_00020_1_l.webp",
+        id: 94
+    },
+    CHAPTER034: {
+        japName: "幻影不知火",
+        type: "chapter",
+        chapter: 34,
+        id: 95
+    },
+    STORYEVENT021: {
+        japName: "朧と猫と舞姫島の伝説",
+        type: "story",
+        banner: "bnr_ev_story_00021_1_l.webp",
+        id: 96
+    },
+    APRILFOOLSEVENT003: {
+        japName: "蛸刺の刃",
+        type: "mini",
+        banner: "bnr_ev_run_00001_l.webp",
+        id: 97
+    },
+    MAPEVENT021: {
+        japName: "毒と復讐",
+        type: "map",
+        banner: "bnr_ev_map_00021_1_l.webp",
+        id: 98
+    },
+    CHAPTER035: {
+        japName: "俺はヒーローになりたい",
+        type: "chapter",
+        chapter: 35,
+        id: 99
+    },
+    RAIDEVENT021: {
+        japName: "ダンジョン再び",
+        type: "raid",
+        banner: "bnr_ev_raid_00021_1_l.webp",
+        id: 100
+    },
+    STORYEVENT022: {
+        japName: "電遁乙女と酔いどれ剣士",
+        type: "story",
+        banner: "bnr_ev_story_00022_1_l.webp",
+        id: 101
+    },
+    CHAPTER036: {
+        japName: "風神の対魔忍",
+        type: "chapter",
+        chapter: 36,
+        id: 102
+    },
+    MAPEVENT022: {
+        japName: "ジューンブライド　the Final",
+        type: "map",
+        banner: "bnr_ev_map_00022_1_l.webp",
+        id: 103
+    },
+    RAIDEVENT022: {
+        japName: "魔界騎士の資格",
+        type: "raid",
+        banner: "bnr_ev_raid_00022_1_l.webp",
+        id: 104
+    },
+    CHAPTER037: {
+        japName: "黒翼の魔界騎士",
+        type: "chapter",
+        chapter: 37,
+        id: 105
+    },
+    STORYEVENT023: {
+        japName: "時をかけるビーチ",
+        type: "story",
+        banner: "bnr_ev_story_00023_1_l.webp",
+        id: 106
+    },
+    MAPEVENT023: {
+        japName: "夏のオトコ祭り",
+        type: "map",
+        banner: "bnr_ev_map_00023_1_l.webp",
+        id: 107
+    },
+    CHAPTER038: {
+        japName: "闇の底で蠢くもの",
+        type: "chapter",
+        chapter: 38,
+        id: 108
+    },
+    RAIDEVENT023: {
+        japName: "夏休みと襲撃者",
+        type: "raid",
+        banner: "bnr_ev_raid_00023_1_l.webp",
+        id: 109
+    },
+    STORYEVENT024: {
+        japName: "バニートラップ",
+        type: "story",
+        banner: "bnr_ev_story_00024_1_l.webp",
+        id: 110
+    },
+    CHAPTER039: {
+        japName: "失われたもの",
+        type: "chapter",
+        chapter: 39,
+        id: 111
+    },
+    MAPEVENT024: {
+        japName: "つながる想いとバースデイ",
+        type: "map",
+        banner: "bnr_ev_map_00024_1_l.webp",
+        id: 112
+    },
+    RAIDEVENT024: {
+        japName: "ヨミハラサイドストーリー",
+        type: "raid",
+        banner: "bnr_ev_raid_00024_1_l.webp",
+        id: 113
+    },
+    CHAPTER040: {
+        japName: "氷神の対魔忍",
+        type: "chapter",
+        chapter: 40,
+        id: 114
+    },
+    STORYEVENT025: {
+        japName: "魔女の記憶と追跡者",
+        type: "story",
+        banner: "bnr_ev_story_00025_1_l.webp",
+        id: 115
+    },
+    MAPEVENT025: {
+        japName: "ハロウィン警備と対魔忍",
+        type: "map",
+        banner: "bnr_ev_map_00025_1_l.webp",
+        id: 116
+    },
+    CHAPTER041: {
+        japName: "五車決戦",
+        type: "chapter",
+        chapter: 41,
+        id: 117
+    },
+    RAIDEVENT025: {
+        japName: "竜と魔女の子守歌",
+        type: "raid",
+        banner: "bnr_ev_raid_00025_1_l.webp",
+        id: 118
+    },
+    MAPEVENT026: {
+        japName: "はぐれ者たちの哀歌",
+        type: "map",
+        banner: "bnr_ev_map_00026_1_l.webp",
+        id: 119
+    },
+    CHAPTER042: {
+        japName: "王の落とし子",
+        type: "chapter",
+        chapter: 42,
+        id: 120
+    },
+    STORYEVENT026: {
+        japName: "アミダハラの探偵",
+        type: "story",
+        banner: "bnr_ev_story_00026_1_l.webp",
+        id: 121
+    },
+    RAIDEVENT026: {
+        japName: "クリスマス・ストーリーズ",
+        type: "raid",
+        banner: "bnr_ev_raid_00026_1_l.webp",
+        id: 122
+    },
+    CHAPTER043: {
+        japName: "闇に咲く雪の花",
+        type: "chapter",
+        chapter: 43,
+        id: 123
+    },
+    MAPEVENT027: {
+        japName: "ゆきかぜがアイドルしてる件",
+        type: "map",
+        banner: "bnr_ev_map_00027_1_l.webp",
+        id: 124
+    },
+    RAIDEVENT027: {
+        japName: "ちょっと魔界に行ってくる",
+        type: "raid",
+        banner: "bnr_ev_raid_00027_1_l.webp",
+        id: 125
+    },
+    CHAPTER044: {
+        japName: "背徳者は眠らない",
+        type: "chapter",
+        chapter: 44,
+        id: 126
+    },
+    STORYEVENT027: {
+        japName: "罪と罰",
+        type: "story",
+        banner: "bnr_ev_story_00027_1_l.webp",
+        id: 127
+    },
+    MAPEVENT028: {
+        japName: "From Your Valentine",
+        type: "map",
+        banner: "bnr_ev_map_00028_1_l.webp",
+        id: 128
+    },
+    CHAPTER045: {
+        japName: "ありがとう、お姉ちゃん",
+        type: "chapter",
+        chapter: 45,
+        id: 129
+    },
+    RAIDEVENT028: {
+        japName: "メイドさんと草",
+        type: "raid",
+        banner: "bnr_ev_raid_00028_1_l.webp",
+        id: 130
+    },
+    STORYEVENT028: {
+        japName: "人さがしの夢魔",
+        type: "story",
+        banner: "bnr_ev_story_00028_1_l.webp",
+        id: 131
+    },
+    CHAPTER046: {
+        japName: "首領と魔神さま",
+        type: "chapter",
+        chapter: 46,
+        id: 132
+    },
+    MAPEVENT029: {
+        japName: "ヨミハラ大応援チアバトル",
+        type: "map",
+        banner: "bnr_ev_map_00029_1_l.webp",
+        id: 133
+    },
+    APRILFOOLSEVENT004: {
+        japName: "対魔忍RPG－N　体験版",
+        type: "mini",
+        banner: "bnr_ev_april_00001_3_l.webp",
+        id: 134
+    },
+    RAIDEVENT029: {
+        japName: "トラと天使とアルバイト",
+        type: "raid",
+        banner: "bnr_ev_raid_00029_1_l.webp",
+        id: 135
+    },
+    CHAPTER047: {
+        japName: "The Resurrection",
+        type: "chapter",
+        chapter: 47,
+        id: 136
+    },
+    STORYEVENT029: {
+        japName: "別れの夜会",
+        type: "story",
+        banner: "bnr_ev_story_00029_1_l.webp",
+        id: 137
+    },
+    MAPEVENT030: {
+        japName: "イングリッドの休暇",
+        type: "map",
+        banner: "bnr_ev_map_00030_1_l.webp",
+        id: 138
+    },
+    CHAPTER048: {
+        japName: "鬼神の対魔忍",
+        type: "chapter",
+        chapter: 48,
+        id: 139
+    },
+    RAIDEVENT030: {
+        japName: "アサギ校長と結婚してみた",
+        type: "raid",
+        banner: "bnr_ev_raid_00030_1_l.webp",
+        id: 140
+    },
+    STORYEVENT030: {
+        japName: "陰陽念流の剣士",
+        type: "story",
+        banner: "bnr_ev_story_00030_1_l.webp",
+        id: 141
+    },
+    MAPEVENT031: {
+        japName: "魔王の娘とビーチ",
+        type: "map",
+        banner: "bnr_ev_map_00031_1_l.webp",
+        id: 142
+    },
+    RAIDEVENT031: {
+        japName: "人魚の住む海",
+        type: "raid",
+        banner: "bnr_ev_raid_00031_1_l.webp",
+        id: 143
+    },
+    CHAPTER049: {
+        japName: "筆頭の試練",
+        type: "chapter",
+        chapter: 49,
+        id: 144
+    },
+    STORYEVENT031: {
+        japName: "GUNSLINGER and TAIMANIN",
+        type: "story",
+        banner: "bnr_ev_story_00031_1_l.webp",
+        id: 145
+    },
+    MAPEVENT032: {
+        japName: "バニーの亡霊",
+        type: "map",
+        banner: "bnr_ev_map_00032_1_l.webp",
+        id: 146
+    },
+    CHAPTER050: {
+        japName: "ヨミハラ牛追い大レース",
+        type: "chapter",
+        chapter: 50,
+        id: 147
+    },
+    RAIDEVENT032: {
+        japName: "舞華姐さんの魚退治",
+        type: "raid",
+        banner: "bnr_ev_raid_00032_1_l.webp",
+        id: 148
+    },
+    STORYEVENT032: {
+        japName: "地下都市の用心棒",
+        type: "story",
+        banner: "bnr_ev_story_00032_1_l.webp",
+        id: 149
+    },
+    CHAPTER051: {
+        japName: "フュルスト",
+        type: "chapter",
+        chapter: 51,
+        id: 150
+    },
+    MAPEVENT033: {
+        japName: "稲毛屋の夏",
+        type: "map",
+        banner: "bnr_ev_map_00033_1_l.webp",
+        id: 151
+    },
+    RAIDEVENT033: {
+        japName: "ハロウィンの魔女剣客",
+        type: "raid",
+        banner: "bnr_ev_raid_00033_1_l.webp",
+        id: 152
+    },
+    CHAPTER052: {
+        japName: "亜希の次元漂流記",
+        type: "chapter",
+        chapter: 52,
+        id: 153
+    },
+    STORYEVENT033: {
+        japName: "未来からの皇女さま",
+        type: "story",
+        banner: "bnr_ev_story_00033_1_l.webp",
+        id: 154
+    },
+    MAPEVENT034: {
+        japName: "魔法少女ココアと謎の魔界騎士",
+        type: "map",
+        banner: "bnr_ev_map_00034_1_l.webp",
+        id: 155
+    },
+    CHAPTER053: {
+        japName: "女王の誕生",
+        type: "chapter",
+        chapter: 53,
+        id: 156
+    },
+    RAIDEVENT034: {
+        japName: "陰陽師とダイダラボッチ",
+        type: "raid",
+        banner: "bnr_ev_raid_00034_1_l.webp",
+        id: 157
+    },
+    STORYEVENT034: {
+        japName: "故郷からの刺客",
+        type: "story",
+        banner: "bnr_ev_story_00034_1_l.webp",
+        id: 158
+    },
+    CHAPTER054: {
+        japName: "桜の騎士と白の暗殺者",
+        type: "chapter",
+        chapter: 54,
+        id: 159
+    },
+    MAPEVENT035: {
+        japName: "魔神さまとお正月",
+        type: "map",
+        banner: "bnr_ev_map_00035_1_l.webp",
+        id: 160
+    },
+    STORYEVENT035: {
+        japName: "双葉・リリー・ラムセス",
+        type: "story",
+        banner: "bnr_ev_story_00035_1_l.webp",
+        id: 161
+    },
+    RAIDEVENT035: {
+        japName: "サイボーグ探偵とバレンタイン",
+        type: "raid",
+        banner: "bnr_ev_raid_00035_1_l.webp",
+        id: 162
+    },
+    MAPEVENT036: {
+        japName: "炎鎖の交",
+        type: "map",
+        banner: "bnr_ev_map_00036_1_l.webp",
+        id: 163
+    },
+    CHAPTER055: {
+        japName: "女子寮に行ったことある？",
+        type: "chapter",
+        chapter: 55,
+        id: 164
+    },
+    RAIDEVENT036: {
+        japName: "特異点の夜会",
+        type: "raid",
+        banner: "bnr_ev_raid_00036_1_l.webp",
+        id: 165
+    },
+    STORYEVENT036: {
+        japName: "魔女の誇りと炎の魔人",
+        type: "story",
+        banner: "bnr_ev_story_00036_1_l.webp",
+        id: 166
+    },
+    CHAPTER056: {
+        japName: "ふたりの彷徨者",
+        type: "chapter",
+        chapter: 56,
+        id: 167
+    },
+    MAPEVENT037: {
+        japName: "青春と欲望のキックオフ",
+        type: "map",
+        banner: "bnr_ev_map_00037_1_l.webp",
+        id: 168
+    },
+    APRILFOOLSEVENT005: {
+        japName: "リズム☆TAIMANIN",
+        type: "mini",
+        banner: "bnr_ev_april_00002_1_l.webp",
+        id: 169
+    },
+    RAIDEVENT037: {
+        japName: "千里眼の時子",
+        type: "raid",
+        banner: "bnr_ev_raid_00037_1_l.webp",
+        id: 170
+    },
+    CHAPTER057: {
+        japName: "黒猫とブラック",
+        type: "chapter",
+        chapter: 57,
+        id: 171
+    },
+    STORYEVENT037: {
+        japName: "メイドの国の大冒険",
+        type: "story",
+        banner: "bnr_ev_story_00037_1_l.webp",
+        id: 172
+    },
+    MAPEVENT038: {
+        japName: "森のサメさんとラティクール",
+        type: "map",
+        banner: "bnr_ev_map_00038_1_l.webp",
+        id: 173
+    },
+    CHAPTER058: {
+        japName: "光を与えしもの",
+        type: "chapter",
+        chapter: 58,
+        id: 174
+    },
+    RAIDEVENT038: {
+        japName: "結婚のヴァルキリア",
+        type: "raid",
+        banner: "bnr_ev_raid_00038_1_l.webp",
+        id: 175
+    },
+    STORYEVENT038: {
+        japName: "酒呑童子と志木麗佳",
+        type: "story",
+        banner: "bnr_ev_story_00038_1_l.webp",
+        id: 176
+    },
+    CHAPTER059: {
+        japName: "太平洋上空に地獄を見た",
+        type: "chapter",
+        chapter: 59,
+        id: 177
+    },
+    MAPEVENT039: {
+        japName: "馬の剣士と真夏の対魔忍",
+        type: "map",
+        banner: "bnr_ev_map_00039_1_l.webp",
+        id: 178
+    },
+    RAIDEVENT039: {
+        japName: "ビビ・ブラッド",
+        type: "raid",
+        banner: "bnr_ev_raid_00039_1_l.webp",
+        id: 179
+    },
+    CHAPTER060: {
+        japName: "ライブラリーの休日",
+        type: "chapter",
+        chapter: 60,
+        id: 180
+    },
+    MAPEVENT040: {
+        japName: "最強バニー決定戦",
+        type: "map",
+        banner: "bnr_ev_map_00040_1_l.webp",
+        id: 181
+    },
+    STORYEVENT039: {
+        japName: "大洋の魔女",
+        type: "story",
+        banner: "bnr_ev_story_00039_1_l.webp",
+        id: 182
+    },
+    CHAPTER061: {
+        japName: "死が溢れ出す",
+        type: "chapter",
+        chapter: 61,
+        id: 183
+    },
+    RAIDEVENT040: {
+        japName: "夏の終わりと百目の鬼",
+        type: "raid",
+        banner: "bnr_ev_raid_00040_1_l.webp",
+        id: 184
+    },
+    STORYEVENT040: {
+        japName: "爆拳の対魔忍と呪われた美女",
+        type: "story",
+        banner: "bnr_ev_story_00040_1_l.webp",
+        id: 185
+    },
+    CHAPTER062: {
+        japName: "紅き血の秘録",
+        type: "chapter",
+        chapter: 62,
+        id: 186
+    },
+    MAPEVENT041: {
+        japName: "10月10日は妊娠の日",
+        type: "map",
+        banner: "bnr_ev_map_00041_1_l.webp",
+        id: 187
+    },
+    RAIDEVENT041: {
+        japName: "電脳ハロウィンの怪物",
+        type: "raid",
+        banner: "bnr_ev_raid_00041_1_l.webp",
+        id: 188
+    },
+    CHAPTER063: {
+        japName: "終末世界の救い方",
+        type: "chapter",
+        chapter: 63,
+        id: 189
+    },
+    MAPEVENT042: {
+        japName: "キングダムレース",
+        type: "map",
+        banner: "bnr_ev_map_00042_1_l.webp",
+        id: 190
+    },
+    STORYEVENT041: {
+        japName: "異世界遠足からの冒険譚",
+        type: "story",
+        banner: "bnr_ev_story_00041_1_l.webp",
+        id: 191
+    },
+    CHAPTER064: {
+        japName: "雪像、消えて",
+        type: "chapter",
+        chapter: 64,
+        id: 192
+    },
+    RAIDEVENT042: {
+        japName: "紅き血の鎮魂歌",
+        type: "raid",
+        banner: "bnr_ev_raid_00042_1_l.webp",
+        id: 193
+    },
+    STORYEVENT042: {
+        japName: "クリスマスの訪問者",
+        type: "story",
+        banner: "bnr_ev_story_00042_1_l.webp",
+        id: 194
+    },
+    CHAPTER065: {
+        japName: "動乱の前奏曲",
+        type: "chapter",
+        chapter: 65,
+        id: 195
+    },
+    MAPEVENT043: {
+        japName: "ビューティフル・ニューイヤー",
+        type: "map",
+        banner: "bnr_ev_map_00043_1_l.webp",
+        id: 196
+    },
+    RAIDEVENT043: {
+        japName: "思いがけないMANGAヒーロー",
+        type: "raid",
+        banner: "bnr_ev_raid_00043_1_l.webp",
+        id: 197
+    },
+    STORYEVENT043: {
+        japName: "五車チョコレート大戦",
+        type: "story",
+        banner: "bnr_ev_story_00043_1_l.webp",
+        id: 198
+    },
+    MAPEVENT044: {
+        japName: "開遁の巫女・魅神千都",
+        type: "map",
+        banner: "bnr_ev_map_00044_1_l.webp",
+        id: 199
+    },
+    CHAPTER066: {
+        japName: "爆炎と不死の炎",
+        type: "chapter",
+        chapter: 66,
+        id: 200
+    },
+    RAIDEVENT044: {
+        japName: "迸れ！パワーの夜会",
+        type: "raid",
+        banner: "bnr_ev_raid_00044_1_l.webp",
+        id: 201
+    },
+    STORYEVENT044: {
+        japName: "ツバキとヨーコ",
+        type: "story",
+        banner: "bnr_ev_story_00044_1_l.webp",
+        id: 202
+    },
+    CHAPTER067: {
+        japName: "神眼逸刀流",
+        type: "chapter",
+        chapter: 67,
+        id: 203
+    },
+    MAPEVENT045: {
+        japName: "雷撃のガールズバンド！",
+        type: "map",
+        banner: "bnr_ev_map_00045_1_l.webp",
+        id: 204
+    },
+    APRILFOOLSEVENT006: {
+        japName: "DeathGrandPrixSP2nd",
+        type: "mini",
+        banner: "bnr_ev_april_00003_1_l.webp",
+        id: 205
+    },
+    RAIDEVENT045: {
+        japName: "舞と最強オークと呪いの日記",
+        type: "raid",
+        banner: "bnr_ev_raid_00045_1_l.webp",
+        id: 206
+    },
+    CHAPTER068: {
+        japName: "ふうま決闘ヶ原",
+        type: "chapter",
+        chapter: 68,
+        id: 207
+    },
+    STORYEVENT045: {
+        japName: "メイドと執事とお使いの冒険",
+        type: "story",
+        banner: "bnr_ev_story_00045_1_l.webp",
+        id: 208
+    },
+    MAPEVENT046: {
+        japName: "おいしい契約",
+        type: "map",
+        banner: "bnr_ev_map_00046_1_l.webp",
+        id: 209
+    },
+    CHAPTER069: {
+        japName: "死神が生まれた日　前編",
+        type: "chapter",
+        chapter: 69,
+        id: 210
+    },
+    RAIDEVENT046: {
+        japName: "イングリッド姫の結婚",
+        type: "raid",
+        banner: "bnr_ev_raid_00046_1_l.webp",
+        id: 211
+    },
+    STORYEVENT046: {
+        japName: "怪獣と巨大化対魔忍",
+        type: "story",
+        banner: "bnr_ev_story_00046_1_l.webp",
+        id: 212
+    },
+    CHAPTER070: {
+        japName: "死神が生まれた日　後編",
+        type: "chapter",
+        chapter: 70,
+        id: 213
+    },
+    MAPEVENT047: {
+        japName: "カーラ様と海水浴に行った件",
+        type: "map",
+        banner: "bnr_ev_map_00047_1_l.webp",
+        id: 214
+    },
+    RAIDEVENT047: {
+        japName: "ビーチ解放区の女王",
+        type: "raid",
+        banner: "bnr_ev_raid_00047_1_l.webp",
+        id: 215
+    },
+    MAPEVENT048: {
+        japName: "黒いバニーの暗殺者",
+        type: "map",
+        banner: "bnr_ev_map_00048_1_l.webp",
+        id: 216
+    },
+    STORYEVENT047: {
+        japName: "対魔忍・オブ・ザ・デッド",
+        type: "story",
+        banner: "bnr_ev_story_00047_1_l.webp",
+        id: 217
+    },
+    CHAPTER071: {
+        japName: "禍津夜叉髑髏",
+        type: "chapter",
+        chapter: 71,
+        id: 218
+    },
+    RAIDEVENT048: {
+        japName: "Persona",
+        type: "raid",
+        banner: "bnr_ev_raid_00048_1_l.webp",
+        id: 219
+    },
+    STORYEVENT048: {
+        japName: "黒星と海獣",
+        type: "story",
+        banner: "bnr_ev_story_00048_1_l.webp",
+        id: 220
+    },
+    CHAPTER072: {
+        japName: "動乱の終奏曲",
+        type: "chapter",
+        chapter: 72,
+        id: 221
+    },
+    MAPEVENT049: {
+        japName: "ルキナちゃんの家出",
+        type: "map",
+        banner: "bnr_ev_map_00049_1_l.webp",
+        id: 222
+    },
+    RAIDEVENT049: {
+        japName: "ダークネスハロウィン大暴走",
+        type: "raid",
+        banner: "bnr_ev_raid_00049_1_l.webp",
+        id: 223
+    },
+    STORYEVENT049: {
+        japName: "新学年とヨミハラRUNレース",
+        type: "story",
+        banner: "bnr_ev_story_00049_1_l.webp",
+        id: 224
+    },
+    CHAPTER073: {
+        japName: "Epilogue",
+        type: "vol1end",
+        chapter: 73,
+        id: 225
+    },
+    MAPEVENT050: {
+        japName: "ミラベル・ベル",
+        type: "map",
+        banner: "bnr_ev_map_00050_1_l.webp",
+        id: 226
+    },
+    CHAPTER201: {
+        japName: "再始動",
+        type: "chapter",
+        chapter: 1,
+        id: 227
+    },
+    RAIDEVENT050: {
+        japName: "翡翠先輩とGOLDEN GIRL",
+        type: "raid",
+        banner: "bnr_ev_raid_00050_1_l.webp",
+        id: 228
+    },
+    STORYEVENT050: {
+        japName: "クリスマスは冬ごもり",
+        type: "story",
+        banner: "bnr_ev_story_00050_1_l.webp",
+        id: 229
+    },
+    MAPEVENT051: {
+        japName: "白蛇姫と幸運のお正月",
+        type: "map",
+        banner: "bnr_ev_map_00051_1_l.webp",
+        id: 230
+    },
+    RAIDEVENT051: {
+        japName: "銀世界の復讐者",
+        type: "raid",
+        banner: "bnr_ev_raid_00051_1_l.webp",
+        id: 231
+    },
+    CHAPTER202: {
+        japName: "廃棄都市",
+        type: "chapter",
+        chapter: 2,
+        id: 232
+    },
+    STORYEVENT051: {
+        japName: "廃棄都市と未来ギャル",
+        type: "story",
+        banner: "bnr_ev_story_00051_1_l.webp",
+        id: 233
+    },
+    MAPEVENT052: {
+        japName: "嶺と炎鬼",
+        type: "map",
+        banner: "bnr_ev_map_00052_1_l.webp",
+        id: 234
+    },
+    RAIDEVENT052: {
+        japName: "癒しのナースと銭湯の対魔忍",
+        type: "raid",
+        banner: "bnr_ev_raid_00052_1_l.webp",
+        id: 235
+    },
+    STORYEVENT052: {
+        japName: "魔石を撃ち抜け",
+        type: "story",
+        banner: "bnr_ev_story_00052_1_l.webp",
+        id: 236
+    },
+    CHAPTER203: {
+        japName: "魔界の門",
+        type: "chapter",
+        chapter: 3,
+        id: 237
+    },
+    STORYEVENT053: {
+        japName: "幻夢卿の夜会",
+        type: "story",
+        banner: "bnr_ev_story_00053_1_l.webp",
+        id: 238
+    },
+    STORYEVENT054: {
+        japName: "次元JCTの支配者",
+        type: "story",
+        banner: "bnr_ev_story_00054_1_l.webp",
+        id: 239
+    },
+    STORYEVENT055: {
+        japName: "幽霊城再び",
+        type: "story",
+        banner: "bnr_ev_story_00055_1_l.webp",
+        id: 240
+    },
+    STORYEVENT056: {
+        japName: "文香とフェリシア",
+        type: "story",
+        banner: "bnr_ev_story_00056_1_l.webp",
+        id: 241
+    },
+    CHAPTER204: {
+        japName: "雷神再び",
+        type: "chapter",
+        chapter: 4,
+        id: 242
+    },
+    STORYEVENT057: {
+        japName: "アスカと花嫁コンテスト",
+        type: "story",
+        banner: "bnr_ev_story_00057_1_l.webp",
+        id: 243
+    },
+    RAIDEVENT053: {
+        japName: "女教師南海大作戦",
+        type: "raid",
+        banner: "bnr_ev_raid_00053_1_l.webp",
+        id: 244
+    },
+    STORYEVENT058: {
+        japName: "地下とリゾートと流浪の対魔忍",
+        type: "story",
+        banner: "bnr_ev_story_00058_1_l.webp",
+        id: 245
+    },
+    RAIDEVENT054: {
+        japName: "大怪獣と渚のアメスク対魔忍",
+        type: "raid",
+        banner: "bnr_ev_raid_00054_1_l.webp",
+        id: 246
+    },
+    CHAPTER205: {
+        japName: "正しい決断",
+        type: "chapter",
+        chapter: 5,
+        id: 247
+    },
+    RAIDEVENT999: {
+        japName: "対魔忍xバジリスク",
+        type: "raid",
+        banner: "bnr_ev_raid_00999_1_l.webp",
+        id: 248
+    },
+    STORYEVENT059: {
+        japName: "Bunny Mission",
+        type: "story",
+        banner: "bnr_ev_story_00059_1_l.webp",
+        id: 249
+    },
+    RAIDEVENT055: {
+        japName: "祭りのあとの肝試し！？",
+        type: "raid",
+        banner: "bnr_ev_raid_00055_1_l.webp",
+        id: 250
+    },
+    MAPEVENT054: {
+        japName: "バトロワとカピバラと対魔忍",
+        type: "map",
+        banner: "bnr_ev_map_00054_1_l.webp",
+        id: 251
+    },
+    CHAPTER206: {
+        japName: "ふうま暁に死す",
+        type: "chapter",
+        chapter: 6,
+        id: 252
+    },
+    STORYEVENT060: {
+        japName: "隠者と騎士と妊娠と",
+        type: "story",
+        banner: "bnr_ev_story_00060_1_l.webp",
+        id: 253
+    },
+    RAIDEVENT056: {
+        japName: "鶴の不思議な冒険",
+        type: "raid",
+        banner: "bnr_ev_raid_00056_1_l.webp",
+        id: 254
+    },
+    TAIMANINASAGI20THEVENT: {
+        japName: "対魔忍アサギ【前世の記憶】",
+        type: "story",
+        banner: "bnr_ev_story_00130_1_l.webp",
+        id: 255
+    },
+    MAPEVENT055: {
+        japName: "Ghost Chaser GUNSLINGER and TAIMANIN Ⅱ",
+        type: "map",
+        banner: "bnr_ev_map_00055_1_l.webp",
+        id: 256
+    },
+    STORYEVENT061: {
+        japName: "Internal Mission",
+        type: "story",
+        banner: "bnr_ev_story_00061_1_l.webp",
+        id: 257
+    },
+    CHAPTER207: {
+        japName: "隠者ククリ",
+        type: "chapter",
+        chapter: 7,
+        id: 258
+    },
+    RAIDEVENT057: {
+        japName: "猫又先生の恩返し",
+        type: "raid",
+        banner: "bnr_ev_raid_00057_1_l.webp",
+        id: 259
+    },
+    MAPEVENT056: {
+        japName: "鰻と魔神さまのクリスマス",
+        type: "map",
+        banner: "bnr_ev_map_00056_1_l.webp",
+        id: 260
+    },
+    STORYEVENT062: {
+        japName: "さくらとヨミハラのお正月",
+        type: "story",
+        banner: "bnr_ev_story_00062_1_l.webp",
+        id: 261
+    },
+    RAIDEVENT058: {
+        japName: "黒煙のアリーナ",
+        type: "raid",
+        banner: "bnr_ev_raid_00058_1_l.webp",
+        id: 262
+    },
+    CHAPTER208: {
+        japName: "Irregulars",
+        type: "chapter",
+        chapter: 8,
+        id: 263
+    },
+    MAPEVENT057: {
+        japName: "バレンタインメイドとチョコ狩人",
+        type: "map",
+        banner: "bnr_ev_map_00057_1_l.webp",
+        id: 264
+    },
+}
+
