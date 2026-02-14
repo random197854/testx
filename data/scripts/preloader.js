@@ -429,6 +429,7 @@ function loadPermFiles(){
 }
 
 function errorLoading(path){
+    console.error(`ErrorLoading: Final failure for path: ${path}`); // Log 4
 	preload.failed = true;
 	preload.failedPaths.push(path);
 }
@@ -458,11 +459,22 @@ function updateProgress(){
 	main.elements.loadingProgress.style.width = ((preload.loaded / preload.paths.size) * 100) + "%";
 }
 
-function loadImage(path, className, perm, callback){
+// New helper function to construct the fallback path
+function getFallbackImagePath(originalPath) {
+    const r18Pattern = /_r18\.webp$/;
+    if (r18Pattern.test(originalPath)) {
+        return originalPath.replace(r18Pattern, '.webp');
+    }
+    return null; // No fallback path possible
+}
+
+function loadImage(path, className, perm, callback, isFallback = false){ // Added isFallback parameter
+    console.log(`loadImage: Attempting to load path: ${path}, isFallback: ${isFallback}`); // Log 1
 	let img = new Image();
 	let fn = path.substr(path.lastIndexOf("/") + 1, path.lastIndexOf(".") - path.lastIndexOf("/") - 1);
 	img.className = className;
 	img.addEventListener("load", function(){
+        console.log(`loadImage: Successfully loaded path: ${path}`); // Log 2
 		if(perm){
 			preload.perm[fn] = img;
 			preload.permElem.append(img);
@@ -475,6 +487,18 @@ function loadImage(path, className, perm, callback){
 		callback();
 	}, {once:true});
 	img.addEventListener("error", function(){
+        console.log(`loadImage: Failed to load path: ${path}, isFallback: ${isFallback}`); // Log 3
+        // Only attempt fallback if it's the original path and contains "_r18"
+        if (!isFallback) {
+            const fallbackPath = getFallbackImagePath(path);
+            if (fallbackPath) {
+                console.log(`Image failed to load: ${path}. Attempting fallback: ${fallbackPath}`);
+                // Retry loading with the fallback path, marking it as a fallback attempt
+                loadImage(fallbackPath, className, perm, callback, true);
+                return; // Stop current error handling
+            }
+        }
+        // If it's a fallback attempt or no fallback possible, report the error
 		errorLoading(path);
 		callback();
 	}, {once:true})
