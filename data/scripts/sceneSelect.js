@@ -154,36 +154,106 @@ function fillSelections() {
 }
 
 function drawSelection() {
+
 	let obj = sceneSelect.iter.next().value;
+
 	if (obj == null || obj == undefined) {
+
 		return;
-	}
-	if (obj.path.split(".").slice(-1)[0] == "webm") {
-		let vid = document.createElement("video");
-		vid.addEventListener("canplay", function () {
-			vid.classList = "cg-video";
-			obj.elem.appendChild(vid)
-			drawSelection();
-		}, { once: true });
-		vid.addEventListener("error", function () {
-			drawSelection();
-		}, { once: true })
-		vid.src = obj.path;
-	} else {
-		let img = new Image();
-		img.addEventListener("load", function () {
-			obj.elem.style.backgroundImage = "url('" + obj.path + "')";
-			drawSelection();
-		}, { once: true });
-		img.addEventListener("error", function (e) {
-			console.error("Failed to load thumbnail: " + obj.path, e);
-			drawSelection();
-		}, { once: true })
-		// Log the attempted URL as requested by user
-		// console.log("Attempting to load thumbnail:", obj.path);
-		img.src = obj.path;
+
 	}
 
+	if (obj.path.split(".").slice(-1)[0] == "webm") {
+
+		let vid = document.createElement("video");
+
+		vid.addEventListener("canplay", function () {
+
+			vid.classList = "cg-video";
+
+			obj.elem.appendChild(vid)
+
+			drawSelection();
+
+		}, { once: true });
+
+		vid.addEventListener("error", function () {
+
+			drawSelection();
+
+		}, { once: true })
+
+		vid.src = obj.path;
+
+	} else {
+
+		let img = new Image();
+
+        img._isFallbackAttempt = false; // Custom property to track fallback attempts
+
+		img.addEventListener("load", function () {
+
+			obj.elem.style.backgroundImage = "url('" + obj.path + "')";
+
+            console.log(`Successfully loaded thumbnail: ${obj.path}`); // Debug log
+
+			drawSelection();
+
+		}, { once: true });
+
+		img.addEventListener("error", function (e) {
+
+            console.log(`Failed to load thumbnail: ${obj.path}, isFallbackAttempt: ${img._isFallbackAttempt}`); // Debug log
+
+            const r18Pattern = /_r18\.webp$/;
+
+            if (!img._isFallbackAttempt && r18Pattern.test(obj.path)) {
+
+                const fallbackPath = obj.path.replace(r18Pattern, '.webp');
+
+                console.log(`Attempting fallback for thumbnail: ${obj.path} -> ${fallbackPath}`); // Debug log
+
+                // Create a new image element for the fallback attempt
+
+                let fallbackImg = new Image();
+
+                fallbackImg._isFallbackAttempt = true; // Mark as fallback attempt
+
+                fallbackImg.addEventListener("load", function() {
+
+                    obj.elem.style.backgroundImage = "url('" + fallbackPath + "')";
+
+                    console.log(`Successfully loaded fallback thumbnail: ${fallbackPath}`); // Debug log
+
+                    drawSelection();
+
+                }, { once: true });
+
+                fallbackImg.addEventListener("error", function(e2) {
+
+                    console.error("Final failed to load thumbnail (original and fallback): " + obj.path + " and " + fallbackPath, e2);
+
+                    drawSelection();
+
+                }, { once: true });
+
+                fallbackImg.src = fallbackPath;
+
+            } else {
+
+                console.error("Failed to load thumbnail: " + obj.path, e);
+
+                drawSelection();
+
+            }
+
+		}, { once: true })
+
+		console.log("Attempting to load thumbnail:", obj.path); // Debug log
+
+		img.src = obj.path;
+
+	}
 
 }
 
