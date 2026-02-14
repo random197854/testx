@@ -1571,41 +1571,5 @@ STORY = {
         banner:"bnr_ev_raid_00057_1_l.png",
         id:259
     },
-    MAPEVENT056:{
-        japName:"鰻と魔神さまのクリスマス",
-        type:"map",
-        banner:"bnr_ev_map_00056_1_l.png",
-        id:260
-    },
-    STORYEVENT062:{
-        japName:"さくらとヨミハラのお正月",
-        type:"story",
-        banner:"bnr_ev_story_00062_1_l.png",
-        id:261
-    },
-    RAIDEVENT058:{
-        japName:"黒煙のアリーナ",
-        type:"raid",
-        banner:"bnr_ev_raid_00058_1_l.png",
-        id:262
-    },
-    CHAPTER208:{
-        japName:"Irregulars",
-        type:"chapter",
-        chapter:8,
-        id:263
-    },
-    MAPEVENT057:{
-        japName:"バレンタインメイドとチョコ狩人",
-        type:"map",
-        banner:"bnr_ev_map_00057_1_l.png",
-        id:264
-    },
-    STORYEVENT063:{
-        japName:"爆炎と夢怪盗",
-        type:"story",
-        banner:"bnr_ev_story_00063_1_l.png",
-        id:265
-    },
 }
 
