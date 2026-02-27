@@ -22,6 +22,14 @@ var scene = {
 	animatedElements: [],
 	movingActor: false,
 	waitIndex: 0,
+	spine: {
+		ctx: null,
+		gl: null,
+		renderer: null,
+		model: null,
+		lastFrameTime: 0,
+		requestID: null
+	},
 	voiceDur: 0,
 	voicedLine: false,
 	waiting: false,
@@ -404,6 +412,7 @@ function buildSceneViewer() {
 	scene.elements.masked = document.createElement("canvas");
 	scene.elements.background = document.createElement("div");
 	scene.elements.backgroundAlt = document.createElement("div");
+	scene.elements.spine = document.createElement("canvas");
 	scene.elements.video = document.createElement("video");
 	scene.elements.flash = document.createElement("div");
 	scene.elements.flashAlt = document.createElement("div");
@@ -425,6 +434,7 @@ function buildSceneViewer() {
 	scene.elements.masked.classList = "viewer-main-class hidden";
 	scene.elements.background.classList = "viewer-main-class viewer-large-image";
 	scene.elements.backgroundAlt.classList = "viewer-main-class viewer-large-image";
+	scene.elements.spine.classList = "viewer-main-class";
 	scene.elements.video.classList = "viewer-main-class viewer-video"
 	scene.elements.flash.classList = "viewer-main-class";
 	scene.elements.flashAlt.classList = "viewer-main-class";
@@ -446,12 +456,13 @@ function buildSceneViewer() {
 	scene.elements.masked.style.zIndex = "-10";
 	scene.elements.background.style.zIndex = "2";
 	scene.elements.backgroundAlt.style.zIndex = "1";
+	scene.elements.spine.style.zIndex = "3";
+	scene.elements.video.style.zIndex = "4";
 	scene.elements.flash.style.zIndex = "5"
 	scene.elements.flashAlt.style.zIndex = "6"
-	scene.elements.actors.style.zIndex = "4";
+	scene.elements.actors.style.zIndex = "5";
 	scene.elements.textBox.style.zIndex = "9"
 	scene.elements.backlog.style.zIndex = "8";
-	scene.elements.video.style.zIndex = "3";
 
 	scene.elements.transition.width = 960;
 	scene.elements.transition.height = 720;
@@ -459,6 +470,8 @@ function buildSceneViewer() {
 	scene.elements.mask.height = 720;
 	scene.elements.masked.width = 960;
 	scene.elements.masked.height = 720;
+	scene.elements.spine.width = 960;
+	scene.elements.spine.height = 720;
 	scene.elements.video.width = 960;
 	scene.elements.video.height = 720;
 
@@ -508,6 +521,7 @@ function buildSceneViewer() {
 	scene.elements.backImages.appendChild(scene.elements.transition);
 	scene.elements.backImages.appendChild(scene.elements.backgroundAlt);
 	scene.elements.backImages.appendChild(scene.elements.background);
+	scene.elements.backImages.appendChild(scene.elements.spine);
 	scene.elements.backImages.appendChild(scene.elements.video);
 	scene.elements.backImages.appendChild(scene.elements.mask);
 	scene.elements.backImages.appendChild(scene.elements.masked);
@@ -533,6 +547,12 @@ function buildSceneViewer() {
 	scene.ctx.transition = scene.elements.transition.getContext("2d");
 	scene.ctx.mask = scene.elements.mask.getContext("2d");
 	scene.ctx.masked = scene.elements.masked.getContext("2d");
+
+	scene.spine.gl = scene.elements.spine.getContext("webgl", { alpha: true }) || scene.elements.spine.getContext("experimental-webgl", { alpha: true });
+	if (scene.spine.gl) {
+		scene.spine.ctx = new spine.ManagedWebGLRenderingContext(scene.spine.gl);
+		scene.spine.renderer = new spine.SceneRenderer(scene.elements.spine, scene.spine.ctx);
+	}
 
 	scene.elements.backlogClose.addEventListener("click", function (e) {
 		e.stopPropagation();
@@ -907,6 +927,117 @@ function runSceneCommands() {
 					endScene();
 				}
 				break;
+			case "SPINE":
+				if (tlTools.jumping) {
+					break;
+				}
+				let spineName = data.split(",")[0].trim();
+				let spineMoving = data.split(",")[1] ? data.split(",")[1].trim() : "IN";
+				let spineDur = data.split(",").length >= 3 ? Number(data.split(",")[2]) : 0;
+				let spineElem = scene.elements.spine;
+
+				if (spineMoving == "OUT") {
+					// Stop accepting animation updates after fade-out
+					const afterFadeOut = () => {
+						if (scene.spine.requestID) {
+							cancelAnimationFrame(scene.spine.requestID);
+							scene.spine.requestID = null;
+						}
+						if (scene.spine.model) {
+							scene.spine.model = null;
+						}
+					};
+					if (parseFloat(spineElem.style.opacity) > 0) {
+						scene.skippableAnimation = false;
+						animateElement(spineElem, spineDur > 0 ? spineDur : 1000, "fade-out", true);
+						spineElem.addEventListener("animationend", afterFadeOut, { once: true });
+					} else {
+						// Not visible — just proceed
+						afterFadeOut();
+					}
+				} else {
+					// Reset if needed before loading new model
+					if (scene.spine.requestID) {
+						cancelAnimationFrame(scene.spine.requestID);
+						scene.spine.requestID = null;
+					}
+					if (scene.spine.model) {
+						scene.spine.model.destroy();
+						scene.spine.model = null;
+					}
+
+					if (scene.spine.gl) {
+						let dataObj = preload.temp["SPINE_" + spineName];
+						if (!dataObj) {
+							console.error("Spine data not preloaded for: " + spineName);
+							break;
+						}
+
+						scene.paused = true; // wait for load
+
+						(async function () {
+							try {
+								const model = await SpineModel.from(dataObj);
+								if (!model) throw new Error("SpineModel.from returned undefined");
+
+								scene.spine.model = model;
+								scene.spine.model.scale(0.65); // Set proportional scale
+								scene.spine.lastFrameTime = performance.now();
+
+								// Setup renderer
+								scene.spine.renderer.camera.position.x = 0;
+								scene.spine.renderer.camera.position.y = 0;
+								scene.spine.renderer.camera.zoom = 1.0;
+
+								const renderSpine = function (now) {
+									if (!scene.spine.model) return;
+
+									const dt = (now - scene.spine.lastFrameTime) / 1000;
+									scene.spine.lastFrameTime = now;
+
+									scene.spine.model.update(dt);
+
+									const gl = scene.spine.gl;
+									gl.viewport(0, 0, scene.elements.spine.width, scene.elements.spine.height);
+									gl.clearColor(0, 0, 0, 0);
+									gl.clear(gl.COLOR_BUFFER_BIT);
+
+									scene.spine.renderer.begin();
+									// Using false because the textures appear to be straight alpha in WebGL memory (causing white fringes when treated as PMA).
+									scene.spine.renderer.drawSkeleton(scene.spine.model.skeleton, false);
+									scene.spine.renderer.end();
+
+									scene.spine.requestID = requestAnimationFrame(renderSpine);
+								};
+								scene.spine.requestID = requestAnimationFrame(renderSpine);
+
+								scene.paused = false;
+
+								if (spineMoving == "IN") {
+									scene.skippableAnimation = false;
+									animateElement(spineElem, spineDur > 0 ? spineDur : 1000, "fade-in", true);
+								} else {
+									spineElem.style.opacity = "1";
+									processSceneCommand();
+								}
+							} catch (err) {
+								console.error("Failed to load Spine model", err);
+								scene.paused = false;
+								processSceneCommand();
+							}
+						})();
+					}
+				}
+				break;
+			case "SPINE_ANIMATOR":
+				if (tlTools.jumping) {
+					break;
+				}
+				let animName = data.trim();
+				if (scene.spine.model) {
+					scene.spine.model.setAnimation({ animationName: animName, loop: true }); // looping for now
+				}
+				break;
 			case "SE_PLAY":
 				if (tlTools.jumping) {
 					break;
@@ -1100,6 +1231,16 @@ function clearViewer() {
 	scene.current.bgm.pause();
 	scene.current.se.pause();
 	scene.current.voice.pause();
+
+	if (scene.spine.requestID) {
+		cancelAnimationFrame(scene.spine.requestID);
+		scene.spine.requestID = null;
+	}
+	if (scene.spine.model) {
+		scene.spine.model.destroy();
+		scene.spine.model = null;
+	}
+
 	main.view.current = SCENE_SELECT;
 	scene.mode = 0;
 	clearTimeout(input.touch.heldScene);
@@ -1836,52 +1977,52 @@ function restartViewer() {
 }
 
 function sceneAutoMode() {
-    const CHARACTER_READ_TIME_MS = 200; // 210ms per character
-    const MIN_DELAY_NO_VOICE_MS = 3000; // Minimum 3 seconds when no voice
+	const CHARACTER_READ_TIME_MS = 200; // 210ms per character
+	const MIN_DELAY_NO_VOICE_MS = 3000; // Minimum 3 seconds when no voice
 
-    const characterCount = scene.elements.textBoxText.innerHTML.replace(/<br>/g, "").length;
+	const characterCount = scene.elements.textBoxText.innerHTML.replace(/<br>/g, "").length;
 
-    // Calculate text-based wait time
-    var textWait = (characterCount * CHARACTER_READ_TIME_MS) + prefs.scene.autoDelay;
+	// Calculate text-based wait time
+	var textWait = (characterCount * CHARACTER_READ_TIME_MS) + prefs.scene.autoDelay;
 
-    // Calculate voice-based wait time
-    var voiceWait = 0;
-    if (scene.voicedLine && prefs.scene.auto.waitVoice && !scene.current.voice.paused && scene.current.voice.duration) {
-        voiceWait = Math.round((scene.current.voice.duration - scene.current.voice.currentTime) * 1000) + prefs.scene.autoDelay;
-    }
+	// Calculate voice-based wait time
+	var voiceWait = 0;
+	if (scene.voicedLine && prefs.scene.auto.waitVoice && !scene.current.voice.paused && scene.current.voice.duration) {
+		voiceWait = Math.round((scene.current.voice.duration - scene.current.voice.currentTime) * 1000) + prefs.scene.autoDelay;
+	}
 
-    // Determine the final auto-advance wait time
-    let sceneAutoWait;
-    if (voiceWait > 0) {
-        // If there's active voice, prioritize voiceWait
-        sceneAutoWait = Math.max(voiceWait, textWait); // Also ensure text is read if voice is very short
-    } else {
-        // If no voice, use textWait, but enforce a minimum delay
-        sceneAutoWait = Math.max(MIN_DELAY_NO_VOICE_MS, textWait);
-    }
+	// Determine the final auto-advance wait time
+	let sceneAutoWait;
+	if (voiceWait > 0) {
+		// If there's active voice, prioritize voiceWait
+		sceneAutoWait = Math.max(voiceWait, textWait); // Also ensure text is read if voice is very short
+	} else {
+		// If no voice, use textWait, but enforce a minimum delay
+		sceneAutoWait = Math.max(MIN_DELAY_NO_VOICE_MS, textWait);
+	}
 
-    // Log for debugging
-    console.log(`--- Auto Mode Timing ---`);
-    console.log(`Text: "${scene.elements.textBoxText.innerHTML.replace(/<br>/g, "")}"`);
-    console.log(`Character Count: ${characterCount}`);
-    console.log(`Calculated Text Wait (ms): ${textWait}`);
-    console.log(`Calculated Voice Wait (ms): ${voiceWait}`);
-    console.log(`Final Auto Wait (ms): ${sceneAutoWait}`);
-    console.log(`------------------------`);
+	// Log for debugging
+	console.log(`--- Auto Mode Timing ---`);
+	console.log(`Text: "${scene.elements.textBoxText.innerHTML.replace(/<br>/g, "")}"`);
+	console.log(`Character Count: ${characterCount}`);
+	console.log(`Calculated Text Wait (ms): ${textWait}`);
+	console.log(`Calculated Voice Wait (ms): ${voiceWait}`);
+	console.log(`Final Auto Wait (ms): ${sceneAutoWait}`);
+	console.log(`------------------------`);
 
-    // Animate progress bar
-    if (scene.elements.autoProgressBar) {
-        scene.elements.autoProgressBar.style.transition = "none";
-        scene.elements.autoProgressBar.style.width = "0%";
-        // Force reflow so the transition restarts from 0%
-        void scene.elements.autoProgressBar.offsetWidth;
-        scene.elements.autoProgressBar.style.transition = "width " + sceneAutoWait + "ms linear";
-        scene.elements.autoProgressBar.style.width = "100%";
-    }
+	// Animate progress bar
+	if (scene.elements.autoProgressBar) {
+		scene.elements.autoProgressBar.style.transition = "none";
+		scene.elements.autoProgressBar.style.width = "0%";
+		// Force reflow so the transition restarts from 0%
+		void scene.elements.autoProgressBar.offsetWidth;
+		scene.elements.autoProgressBar.style.transition = "width " + sceneAutoWait + "ms linear";
+		scene.elements.autoProgressBar.style.width = "100%";
+	}
 
-    scene.nextAuto = setTimeout(function () {
-        progressScene();
-    }, sceneAutoWait);
+	scene.nextAuto = setTimeout(function () {
+		progressScene();
+	}, sceneAutoWait);
 }
 
 function animateElement(elem, dur, animName, listen, timing = "linear") {
