@@ -28,7 +28,8 @@ var scene = {
 		renderer: null,
 		model: null,
 		lastFrameTime: 0,
-		requestID: null
+		requestID: null,
+		lastAnims: {}
 	},
 	voiceDur: 0,
 	voicedLine: false,
@@ -975,10 +976,11 @@ function runSceneCommands() {
 							break;
 						}
 
-						const defaultAnimName = spineEntry.Default;
-						const animData = spineEntry.Anim[defaultAnimName];
+						// Use last animation if it exists, else Default
+						const currentAnim = scene.spine.lastAnims[spineKey] || spineEntry.Default;
+						const animData = spineEntry.Anim[currentAnim];
 						if (!animData) {
-							console.error("Default animation not found in spine_data: " + defaultAnimName);
+							console.error("Animation not found in spine_data: " + currentAnim);
 							break;
 						}
 
@@ -990,6 +992,7 @@ function runSceneCommands() {
 
 						scene.spine.currentName = spineKey;
 						scene.spine.currentSkel = animData.skel;
+						scene.spine.lastAnims[spineKey] = currentAnim;
 						scene.paused = true;
 
 						(async function () {
@@ -1026,8 +1029,8 @@ function runSceneCommands() {
 								};
 								scene.spine.requestID = requestAnimationFrame(renderSpine);
 
-								// Start default animation
-								scene.spine.model.setAnimation({ animationName: defaultAnimName, loop: true });
+								// Start current animation
+								scene.spine.model.setAnimation({ animationName: currentAnim, loop: true });
 
 								scene.paused = false;
 
@@ -1124,6 +1127,7 @@ function runSceneCommands() {
 							scene.spine.requestID = requestAnimationFrame(renderSpine);
 
 							scene.spine.model.setAnimation({ animationName: animName, loop: true });
+							scene.spine.lastAnims[spineKey] = animName;
 							scene.paused = false;
 							processSceneCommand();
 						} catch (err) {
@@ -1137,6 +1141,7 @@ function runSceneCommands() {
 					// Same skel — just switch animation
 					scene.spine.model.setAnimation({ animationName: animName, loop: true });
 				}
+				scene.spine.lastAnims[spineKey] = animName;
 				break;
 			}
 			case "SE_PLAY":
