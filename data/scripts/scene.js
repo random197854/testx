@@ -927,7 +927,7 @@ function runSceneCommands() {
 					endScene();
 				}
 				break;
-			case "SPINE":
+			case "SPINE": {
 				if (tlTools.jumping) {
 					break;
 				}
@@ -952,7 +952,6 @@ function runSceneCommands() {
 						animateElement(spineElem, spineDur > 0 ? spineDur : 1000, "fade-out", true);
 						spineElem.addEventListener("animationend", afterFadeOut, { once: true });
 					} else {
-						// Not visible — just proceed
 						afterFadeOut();
 					}
 				} else {
@@ -967,13 +966,31 @@ function runSceneCommands() {
 					}
 
 					if (scene.spine.gl) {
-						let dataObj = preload.temp["SPINE_" + spineName];
-						if (!dataObj) {
-							console.error("Spine data not preloaded for: " + spineName);
+						const spineKey = spineName.toLowerCase();
+						const spineEntry = (preload.perm.spineData || {})[spineKey];
+						const cached = preload.temp["SPINE_" + spineKey];
+
+						if (!spineEntry || !cached) {
+							console.error("Spine data not available for: " + spineKey);
 							break;
 						}
 
-						scene.paused = true; // wait for load
+						const defaultAnimName = spineEntry.Default;
+						const animData = spineEntry.Anim[defaultAnimName];
+						if (!animData) {
+							console.error("Default animation not found in spine_data: " + defaultAnimName);
+							break;
+						}
+
+						const dataObj = {
+							atlas: cached.atlases[animData.atlas],
+							skel: cached.skels[animData.skel],
+							images: cached.images
+						};
+
+						scene.spine.currentName = spineKey;
+						scene.spine.currentSkel = animData.skel;
+						scene.paused = true;
 
 						(async function () {
 							try {
@@ -981,10 +998,9 @@ function runSceneCommands() {
 								if (!model) throw new Error("SpineModel.from returned undefined");
 
 								scene.spine.model = model;
-								scene.spine.model.scale(0.65); // Set proportional scale
+								scene.spine.model.scale(0.65);
 								scene.spine.lastFrameTime = performance.now();
 
-								// Setup renderer
 								scene.spine.renderer.camera.position.x = 0;
 								scene.spine.renderer.camera.position.y = 0;
 								scene.spine.renderer.camera.zoom = 1.0;
@@ -1003,13 +1019,15 @@ function runSceneCommands() {
 									gl.clear(gl.COLOR_BUFFER_BIT);
 
 									scene.spine.renderer.begin();
-									// Using false because the textures appear to be straight alpha in WebGL memory (causing white fringes when treated as PMA).
 									scene.spine.renderer.drawSkeleton(scene.spine.model.skeleton, false);
 									scene.spine.renderer.end();
 
 									scene.spine.requestID = requestAnimationFrame(renderSpine);
 								};
 								scene.spine.requestID = requestAnimationFrame(renderSpine);
+
+								// Start default animation
+								scene.spine.model.setAnimation({ animationName: defaultAnimName, loop: true });
 
 								scene.paused = false;
 
@@ -1029,15 +1047,98 @@ function runSceneCommands() {
 					}
 				}
 				break;
-			case "SPINE_ANIMATOR":
+			}
+			case "SPINE_ANIMATOR": {
 				if (tlTools.jumping) {
 					break;
 				}
-				let animName = data.trim();
-				if (scene.spine.model) {
-					scene.spine.model.setAnimation({ animationName: animName, loop: true }); // looping for now
+				const animName = data.trim();
+				const spineKey = scene.spine.currentName;
+
+				if (!scene.spine.model || !spineKey) break;
+
+				const spineEntry = (preload.perm.spineData || {})[spineKey];
+				const cached = preload.temp["SPINE_" + spineKey];
+
+				if (!spineEntry || !cached) {
+					console.error("Spine data not available for SPINE_ANIMATOR: " + spineKey);
+					break;
+				}
+
+				const animData = spineEntry.Anim[animName];
+				if (!animData) {
+					console.error("Animation not found in spine_data: " + animName);
+					break;
+				}
+
+				if (animData.skel !== scene.spine.currentSkel) {
+					// Need to reload with a different .skel
+					const dataObj = {
+						atlas: cached.atlases[animData.atlas],
+						skel: cached.skels[animData.skel],
+						images: cached.images
+					};
+
+					if (!dataObj.atlas || !dataObj.skel) {
+						console.error("Missing preloaded skel/atlas for: " + animData.skel);
+						break;
+					}
+
+					scene.paused = true;
+					if (scene.spine.requestID) {
+						cancelAnimationFrame(scene.spine.requestID);
+						scene.spine.requestID = null;
+					}
+					if (scene.spine.model) {
+						scene.spine.model = null;
+					}
+
+					(async function () {
+						try {
+							const model = await SpineModel.from(dataObj);
+							if (!model) throw new Error("SpineModel.from returned undefined");
+
+							scene.spine.model = model;
+							scene.spine.model.scale(0.65);
+							scene.spine.lastFrameTime = performance.now();
+							scene.spine.currentSkel = animData.skel;
+
+							const renderSpine = function (now) {
+								if (!scene.spine.model) return;
+
+								const dt = (now - scene.spine.lastFrameTime) / 1000;
+								scene.spine.lastFrameTime = now;
+								scene.spine.model.update(dt);
+
+								const gl = scene.spine.gl;
+								gl.viewport(0, 0, scene.elements.spine.width, scene.elements.spine.height);
+								gl.clearColor(0, 0, 0, 0);
+								gl.clear(gl.COLOR_BUFFER_BIT);
+
+								scene.spine.renderer.begin();
+								scene.spine.renderer.drawSkeleton(scene.spine.model.skeleton, false);
+								scene.spine.renderer.end();
+
+								scene.spine.requestID = requestAnimationFrame(renderSpine);
+							};
+							scene.spine.requestID = requestAnimationFrame(renderSpine);
+
+							scene.spine.model.setAnimation({ animationName: animName, loop: true });
+							scene.paused = false;
+							processSceneCommand();
+						} catch (err) {
+							console.error("SPINE_ANIMATOR model reload failed:", err);
+							scene.paused = false;
+							processSceneCommand();
+						}
+					})();
+					return; // async handles execution
+				} else {
+					// Same skel — just switch animation
+					scene.spine.model.setAnimation({ animationName: animName, loop: true });
 				}
 				break;
+			}
 			case "SE_PLAY":
 				if (tlTools.jumping) {
 					break;

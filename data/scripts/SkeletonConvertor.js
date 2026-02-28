@@ -1903,7 +1903,7 @@
                         imageFailed = true;
                         reject();
                     }
-                    img.src = data.images[page.name];
+                    img.src = data.images[page.name] || data.images[page.name.toLowerCase()];
                 });
             }
             if (imageFailed) {

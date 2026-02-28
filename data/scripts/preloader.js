@@ -41,14 +41,15 @@ function preloadSceneResources(script) {
 				fn = command.substr(command.indexOf(",") + 1, command.substr(command.indexOf(",") + 1).indexOf(",")).trim();
 				src = createImagePath(fn);
 				break;
-			case "SPINE":
-				fn = command.substr(command.indexOf(">") + 1);
-				if (fn.indexOf(",") !== -1) {
-					fn = fn.substr(0, fn.indexOf(","));
-				}
-				fn = fn.trim();
-				preload.paths.add("SPINE:" + fn);
+			case "SPINE": {
+				let rawFn = command.substr(command.indexOf(">") + 1);
+				if (rawFn.indexOf(",") !== -1) rawFn = rawFn.substr(0, rawFn.indexOf(","));
+				rawFn = rawFn.trim();
+				let spineArg = command.split(",")[1] ? command.split(",")[1].trim() : "IN";
+				if (spineArg === "OUT") break; // OUT needs no preloading
+				preload.paths.add("SPINE:" + rawFn.toLowerCase());
 				break;
+			}
 			case "VOICE_PLAY":
 				src = constructVoiceAudioPath(command.substr(command.lastIndexOf(">") + 1).trim(), scene.id);
 				break;
@@ -65,7 +66,9 @@ function preloadSceneResources(script) {
 	}
 	preload.paths.delete(undefined);
 	preload.iter = preload.paths.values();
-	fileLoader(loadSceneResources);
+	loadSpineData(() => {
+		fileLoader(loadSceneResources);
+	});
 }
 
 function preloadTABAResources() {
@@ -211,36 +214,50 @@ function loadSceneResources() {
 			return;
 		}
 
-		let skelUrl = constructSpinePath((spineName + ".skel").toLowerCase());
-		let atlasUrl = constructSpinePath((spineName + ".atlas").toLowerCase());
+		const spineEntry = (preload.perm.spineData || {})[spineName];
+		if (!spineEntry) {
+			console.error("No spine_data.json entry for: " + spineName);
+			loadSceneResources();
+			return;
+		}
 
-		Promise.all([
-			fetch(skelUrl).then(res => res.arrayBuffer()),
-			fetch(atlasUrl).then(res => res.text())
-		]).then(([skelBuf, atlasText]) => {
-			const skelBase64 = btoa(new Uint8Array(skelBuf).reduce((data, byte) => data + String.fromCharCode(byte), ''));
-			let images = {};
-			let lines = atlasText.split("\n");
-			for (let line of lines) {
-				if (line.includes(".png") && !line.includes(":")) {
-					let imgName = line.trim();
-					images[imgName] = constructSpinePath(imgName.toLowerCase());
+		// Determine the subdirectory from the first asset path
+		const firstAsset = spineEntry.Assets[0];
+		const subDir = firstAsset.substring(0, firstAsset.lastIndexOf("/") + 1); // e.g. "data/spine/20th_asagi_ev_01/"
 
-					// Preload the image implicitly so it's cached for SpineModel.from
-					const cachedImg = new Image();
-					cachedImg.crossOrigin = "anonymous";
-					cachedImg.src = images[imgName];
-				}
+		const skels = {}; // filename.skel -> base64
+		const atlases = {}; // filename.atlas -> text
+		const images = {}; // filename.png -> url
+
+		const fetches = spineEntry.Assets.map(assetRelPath => {
+			const url = buildSpineAssetUrl(assetRelPath);
+			const ext = assetRelPath.substring(assetRelPath.lastIndexOf(".") + 1).toLowerCase();
+			const filename = assetRelPath.substring(assetRelPath.lastIndexOf("/") + 1);
+
+			if (ext === "skel") {
+				return fetch(url).then(r => r.arrayBuffer()).then(buf => {
+					skels[filename] = btoa(new Uint8Array(buf).reduce((d, b) => d + String.fromCharCode(b), ''));
+				});
+			} else if (ext === "atlas") {
+				return fetch(url).then(r => r.text()).then(txt => {
+					atlases[filename] = txt;
+				});
+			} else if (ext === "png") {
+				images[filename] = url;
+				// Pre-warm browser cache
+				const img = new Image();
+				img.crossOrigin = "anonymous";
+				img.src = url;
+				return Promise.resolve();
 			}
+			return Promise.resolve();
+		});
 
-			preload.temp["SPINE_" + spineName] = {
-				atlas: atlasText,
-				skel: skelBase64,
-				images: images
-			};
+		Promise.all(fetches).then(() => {
+			preload.temp["SPINE_" + spineName] = { skels, atlases, images, subDir };
 			loadSceneResources();
 		}).catch(err => {
-			console.error("Failed to preload Spine data: ", err);
+			console.error("Failed to preload Spine data for " + spineName + ": ", err);
 			loadSceneResources();
 		});
 		return;
@@ -414,8 +431,24 @@ function constructImagePath(src, id) {
 function constructVoiceAudioPath(src, id) {
 	return "https://raw.githubusercontent.com/random197854/test5/gh-pages/data/audio/voices/" + src.toLowerCase() + ".ogg";
 }
-function constructSpinePath(src) {
-	return "https://raw.githubusercontent.com/random197854/test5/gh-pages/data/spine/" + src;
+function buildSpineAssetUrl(assetRelPath) {
+	return "https://raw.githubusercontent.com/random197854/test5/gh-pages/" + assetRelPath;
+}
+function loadSpineData(callback) {
+	if (preload.perm.spineData) {
+		if (callback) callback();
+		return;
+	}
+	fetch("./data/scripts/data/spine_data.json")
+		.then(r => r.json())
+		.then(json => {
+			preload.perm.spineData = json;
+			if (callback) callback();
+		})
+		.catch(err => {
+			console.error("Failed to load spine_data.json:", err);
+			if (callback) callback();
+		});
 }
 
 function constructBGMAudioPath(src) {

@@ -1,0 +1,188 @@
+{
+    "20th_asagi_ev_01": {
+        "Assets": [
+            "data/spine/20th_asagi_ev_01/20th_asagi_ev_01.png",
+            "data/spine/20th_asagi_ev_01/20th_asagi_ev_01.skel",
+            "data/spine/20th_asagi_ev_01/20th_asagi_ev_01.atlas"
+        ],
+        "Default": "EV1_Idle_01",
+        "Anim": {
+            "EV1_Idle_01": {
+                "skel": "20th_asagi_ev_01.skel",
+                "atlas": "20th_asagi_ev_01.atlas"
+            },
+            "EV1_Idle_02": {
+                "skel": "20th_asagi_ev_01.skel",
+                "atlas": "20th_asagi_ev_01.atlas"
+            },
+            "EV1_Idle_03": {
+                "skel": "20th_asagi_ev_01.skel",
+                "atlas": "20th_asagi_ev_01.atlas"
+            },
+            "EV1_Idle_04": {
+                "skel": "20th_asagi_ev_01.skel",
+                "atlas": "20th_asagi_ev_01.atlas"
+            },
+            "EV1_Idle_05": {
+                "skel": "20th_asagi_ev_01.skel",
+                "atlas": "20th_asagi_ev_01.atlas"
+            },
+            "EV1_Idle_06": {
+                "skel": "20th_asagi_ev_01.skel",
+                "atlas": "20th_asagi_ev_01.atlas"
+            },
+            "EV1_Idle_07": {
+                "skel": "20th_asagi_ev_01.skel",
+                "atlas": "20th_asagi_ev_01.atlas"
+            },
+            "EV1_Idle_08": {
+                "skel": "20th_asagi_ev_01.skel",
+                "atlas": "20th_asagi_ev_01.atlas"
+            },
+            "EV1_Idle_09": {
+                "skel": "20th_asagi_ev_01.skel",
+                "atlas": "20th_asagi_ev_01.atlas"
+            },
+            "EV1_Idle_10": {
+                "skel": "20th_asagi_ev_01.skel",
+                "atlas": "20th_asagi_ev_01.atlas"
+            },
+            "EV1_Idle_11": {
+                "skel": "20th_asagi_ev_01.skel",
+                "atlas": "20th_asagi_ev_01.atlas"
+            },
+            "EV1_Idle_12": {
+                "skel": "20th_asagi_ev_01.skel",
+                "atlas": "20th_asagi_ev_01.atlas"
+            },
+            "EV1_Idle_13": {
+                "skel": "20th_asagi_ev_01.skel",
+                "atlas": "20th_asagi_ev_01.atlas"
+            }
+        }
+    },
+    "20th_asagi_ev_02": {
+        "Assets": [
+            "data/spine/20th_asagi_ev_02/20th_asagi_ev_02.png",
+            "data/spine/20th_asagi_ev_02/20th_asagi_ev_022.png",
+            "data/spine/20th_asagi_ev_02/20th_asagi_ev_023.png",
+            "data/spine/20th_asagi_ev_02/20th_asagi_ev_01.skel",
+            "data/spine/20th_asagi_ev_02/20th_asagi_ev_01.atlas"
+        ],
+        "Default": "EV2_idle_01",
+        "Anim": {
+            "EV2_idle_01": {
+                "skel": "20th_asagi_ev_02.skel",
+                "atlas": "20th_asagi_ev_02.atlas"
+            },
+            "EV2_idle_02": {
+                "skel": "20th_asagi_ev_02.skel",
+                "atlas": "20th_asagi_ev_02.atlas"
+            },
+            "EV2_idle_03": {
+                "skel": "20th_asagi_ev_02.skel",
+                "atlas": "20th_asagi_ev_02.atlas"
+            },
+            "EV2_idle_04": {
+                "skel": "20th_asagi_ev_02.skel",
+                "atlas": "20th_asagi_ev_02.atlas"
+            },
+            "EV2_idle_05": {
+                "skel": "20th_asagi_ev_02.skel",
+                "atlas": "20th_asagi_ev_02.atlas"
+            },
+            "EV2_idle_06": {
+                "skel": "20th_asagi_ev_02.skel",
+                "atlas": "20th_asagi_ev_02.atlas"
+            },
+            "EV2_idle_07": {
+                "skel": "20th_asagi_ev_02.skel",
+                "atlas": "20th_asagi_ev_02.atlas"
+            },
+            "EV2_idle_08": {
+                "skel": "20th_asagi_ev_02.skel",
+                "atlas": "20th_asagi_ev_02.atlas"
+            },
+            "EV2_idle_09": {
+                "skel": "20th_asagi_ev_02.skel",
+                "atlas": "20th_asagi_ev_02.atlas"
+            }
+        }
+    },
+    "nagi_ev_01": {
+        "Assets": [
+            "data/spine/nagi_ev_01/nagi_ev1.png",
+            "data/spine/nagi_ev_01/nagi_ev12.png",
+            "data/spine/nagi_ev_01/nagi_ev13.png",
+            "data/spine/nagi_ev_01/nagi_ev14.png",
+            "data/spine/nagi_ev_01/nagi_ev15.png",
+            "data/spine/nagi_ev_01/nagi_ev_01_01.skel",
+            "data/spine/nagi_ev_01/nagi_ev_01_02.skel",
+            "data/spine/nagi_ev_01/nagi_ev_01_03.skel",
+            "data/spine/nagi_ev_01/nagi_ev_01_04.skel",
+            "data/spine/nagi_ev_01/nagi_ev_01_05.skel",
+            "data/spine/nagi_ev_01/nagi_ev_01.atlas"
+        ],
+        "Default": "EV1_idle_01",
+        "Anim": {
+            "EV1_idle_01": {
+                "skel": "nagi_ev_01_01.skel",
+                "atlas": "nagi_ev_01.atlas"
+            },
+            "EV1_idle_02": {
+                "skel": "nagi_ev_01_02.skel",
+                "atlas": "nagi_ev_01.atlas"
+            },
+            "EV1_idle_03": {
+                "skel": "nagi_ev_01_03.skel",
+                "atlas": "nagi_ev_01.atlas"
+            },
+            "EV1_idle_04": {
+                "skel": "nagi_ev_01_04.skel",
+                "atlas": "nagi_ev_01.atlas"
+            },
+            "EV1_idle_05": {
+                "skel": "nagi_ev_01_05.skel",
+                "atlas": "nagi_ev_01.atlas"
+            }
+        }
+    },
+    "keito_ev_01": {
+        "Assets": [
+            "data/spine/keito_ev_01/keito_ev_01.png",
+            "data/spine/keito_ev_01/keito_ev_012.png",
+            "data/spine/keito_ev_01/keito_ev_013.png",
+            "data/spine/keito_ev_01/keito_ev_014.png",
+            "data/spine/keito_ev_01/keito_ev_015.png",
+            "data/spine/keito_ev_01/keito_ev_01_01.skel",
+            "data/spine/keito_ev_01/keito_ev_01_02.skel",
+            "data/spine/keito_ev_01/keito_ev_01_03.skel",
+            "data/spine/keito_ev_01/keito_ev_01_04.skel",
+            "data/spine/keito_ev_01/keito_ev_01_05.skel",
+            "data/spine/keito_ev_01/keito_ev_01.atlas"
+        ],
+        "Default": "EV1_idle_01",
+        "Anim": {
+            "EV1_idle_01": {
+                "skel": "keito_ev_01_01.skel",
+                "atlas": "keito_ev_01.atlas"
+            },
+            "EV1_idle_02": {
+                "skel": "keito_ev_01_02.skel",
+                "atlas": "keito_ev_01.atlas"
+            },
+            "EV1_idle_03": {
+                "skel": "keito_ev_01_03.skel",
+                "atlas": "keito_ev_01.atlas"
+            },
+            "EV1_idle_04": {
+                "skel": "keito_ev_01_04.skel",
+                "atlas": "keito_ev_01.atlas"
+            },
+            "EV1_idle_05": {
+                "skel": "keito_ev_01_05.skel",
+                "atlas": "keito_ev_01.atlas"
+            }
+        }
+    }
+}
