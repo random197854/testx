@@ -976,8 +976,19 @@ function runSceneCommands() {
 							break;
 						}
 
-						// Use last animation if it exists, else Default
-						const currentAnim = scene.spine.lastAnims[spineKey] || spineEntry.Default;
+						// Look ahead for an immediate SPINE_ANIMATOR to avoid redundant Default animation load
+						let targetAnim = scene.spine.lastAnims[spineKey] || spineEntry.Default;
+						// Only do look-ahead if they are in the same batch (scene.commands)
+						for (let i = scene.commands.indexOf(command) + 1; i < scene.commands.length; i++) {
+							let nextCmd = scene.commands[i];
+							if (nextCmd.startsWith("<SPINE_ANIMATOR>")) {
+								targetAnim = nextCmd.split(">")[1].trim();
+								break;
+							}
+							if (nextCmd.startsWith("<SPINE>")) break;
+						}
+
+						const currentAnim = targetAnim;
 						const animData = spineEntry.Anim[currentAnim];
 						if (!animData) {
 							console.error("Animation not found in spine_data: " + currentAnim);
@@ -1058,6 +1069,11 @@ function runSceneCommands() {
 				const animName = data.trim();
 				const spineKey = scene.spine.currentName;
 
+				// Always record the intended animation
+				if (spineKey) {
+					scene.spine.lastAnims[spineKey] = animName;
+				}
+
 				if (!scene.spine.model || !spineKey) break;
 
 				const spineEntry = (preload.perm.spineData || {})[spineKey];
@@ -1065,6 +1081,12 @@ function runSceneCommands() {
 
 				if (!spineEntry || !cached) {
 					console.error("Spine data not available for SPINE_ANIMATOR: " + spineKey);
+					break;
+				}
+
+				// If the model is already playing this animation and it's the right skel, do nothing
+				if (scene.spine.currentSkel === (spineEntry.Anim[animName] || {}).skel &&
+					scene.spine.model.currentAnimation === animName) {
 					break;
 				}
 
