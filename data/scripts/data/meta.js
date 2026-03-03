@@ -1371,8 +1371,8 @@ var CV = {
         japAlias: ["水城", "すい"]
     },
     KURABA_AIRI:{
-        eng: "Kubara Airi",
-        engAlias: ["Kubara", "Airi Kubara", "Airi"],
+        eng: "Kuraba Airi",
+        engAlias: ["Kuraba", "Airi Kuraba", "Airi"],
         jap: "倉葉アイリ",
         japAlias: ["倉葉", "アイリ"]
     },
@@ -12001,6 +12001,44 @@ var CHAR = {
             originalCharacter:true,
             artist:ARTIST.HAMADA_YOUHO,
             cv:CV.KAGURAZAKA_KIYO
+        }
+    },
+    KARASHUNA:{
+        base:{
+            name:{
+                eng:"Karashuna",
+                engAlias:[],
+                jap:"カラシュナ",
+                japAlias:[]
+            },
+            tags:[
+                TAG.BROWN_HAIR, TAG.LONG_HAIR,
+                TAG.AMBER_EYES,
+                TAG.DARK_SKIN, TAG.AVERAGE_BREASTS
+            ],
+            gender:"female",
+            originalCharacter:true,
+            artist:ARTIST.HAMADA_YOUHO,
+            cv:CV.KURABA_AIRI
+        }
+    },
+    MELTY_SUGAR:{
+        base:{
+            name:{
+                eng:"Melty Sugar",
+                engAlias:["Melty", "Sugar"],
+                jap:"メルティシュガー",
+                japAlias:["メルティ", "シュガー"]
+            },
+            tags:[
+                TAG.BLOND_HAIR, TAG.LONG_HAIR,
+                TAG.BLUE_EYES,
+                TAG.TANNED_SKIN, TAG.BIG_BREASTS
+            ],
+            gender:"female",
+            originalCharacter:true,
+            artist:ARTIST.NOBUSHITO,
+            cv:CV.KASHIWAGI_AIKA
         }
     },
 
@@ -33935,6 +33973,89 @@ var SCENE = {
             male:[],
             location:[TAG.PRISON_CELL, TAG.PRIVATE],
             misc:[]
+        },
+        ignoredCharacterTags:[]
+    },
+
+
+
+    "1029_1":{
+        character:[CHAR.KARASHUNA, CHAR.FUUMA_KOTAROU],
+        tags:{
+            female:[
+                TAG.NAKED,
+                TAG.VAGINAL_SEX, TAG.LEGLOCK, TAG.BREAST_GROPING, TAG.NAKADASHI, TAG.KISSING
+            ],
+            male:[],
+            location:[TAG.BEDROOM, TAG.ON_BED, TAG.PRIVATE],
+            misc:[TAG.CUT_IN_XRAY]
+        },
+        ignoredCharacterTags:[],
+        nextScene:"1029_2"
+    },
+    "1029_2":{
+        character:CHAR.KARASHUNA,
+        tags:{
+            female:[
+                TAG.NAKED,
+                TAG.ANAL_SEX, TAG.FORCEFUL_BLOWJOB, TAG.VAGINAL_FINGERING, TAG.DOUBLE_PENIS_PENETRATION, TAG.TRIPLE_PENETRATION, TAG.NAKADASHI, TAG.CUM_IN_MOUTH, TAG.BUKKAKE, TAG.STOMACH_INFLATION
+            ],
+            male:[],
+            location:[TAG.PRIVATE],
+            misc:[]
+        },
+        ignoredCharacterTags:[]
+    },
+    "1030_1":{
+        character:[CHAR.FUUMA_SAIKA, CHAR.FUUMA_KOTAROU],
+        tags:{
+            female:[
+                TAG.BRA, TAG.PANTIES, TAG.PROTRUDING_NIPPLES, TAG.BREASTS_OUT,
+                TAG.MASTURBATION, TAG.VAGINAL_FINGERING, TAG.VAGINAL_LEAKAGE, TAG.BLOWJOB, TAG.CUM_IN_MOUTH
+            ],
+            male:[],
+            location:[TAG.INSIDE, TAG.PRIVATE],
+            misc:[TAG.NO_SEX]
+        },
+        ignoredCharacterTags:[],
+        nextScene:"1030_2"
+    },
+    "1030_2":{
+        character:[CHAR.FUUMA_SAIKA, CHAR.FUUMA_KOTAROU],
+        tags:{
+            female:[
+                TAG.BRA, TAG.PANTIES, TAG.BREASTS_OUT, TAG.PANTIES_PUSHED_TO_SIDE,
+                TAG.CUNNILINGUS, TAG.SQUIRTING, TAG.VAGINAL_SEX, TAG.BREAST_GROPING, TAG.NIPPLE_SUCKING, TAG.NAKADASHI
+            ],
+            male:[],
+            location:[TAG.INSIDE, TAG.PRIVATE],
+            misc:[]
+        },
+        ignoredCharacterTags:[]
+    },
+    "1031":{
+        character:CHAR.MELTY_SUGAR,
+        tags:{
+            female:[
+                TAG.BRA, TAG.PANTIES, TAG.PROTRUDING_NIPPLES, TAG.BREASTS_OUT, TAG.PANTIES_PUSHED_TO_SIDE,
+                TAG.MASTURBATION, TAG.BREAST_GROPING, TAG.CLIT_PLAY, TAG.SQUIRTING, TAG.AHEGAO, TAG.VAGINAL_SEX, TAG.NAKADASHI
+            ],
+            male:[],
+            location:[TAG.OUTSIDE, TAG.SEMI_PRIVATE],
+            misc:[]
+        },
+        ignoredCharacterTags:[]
+    },
+    "1032":{
+        character:CHAR.MOGAMI_TSUKUMO,
+        tags:{
+            female:[
+                TAG.SCHOOL_UNIFORM, TAG.BRA, TAG.BREASTS_OUT, TAG.PANTIES, TAG.PANTIES_PULLED_DOWN,
+                TAG.BREAST_GROPING, TAG.INTERCRURAL_SEX, TAG.VAGINAL_SEX, TAG.SQUIRTING, TAG.KISSING, TAG.NAKADASHI
+            ],
+            male:[],
+            location:[TAG.CLASSROOM, TAG.PRIVATE],
+            misc:[TAG.CUT_IN_XRAY]
         },
         ignoredCharacterTags:[]
     },
