@@ -563,6 +563,10 @@ function loadImage(path, className, perm, callback, isFallback = false) { // Add
 	img.className = className;
 	img.addEventListener("load", function () {
 		console.log(`loadImage: Successfully loaded path: ${path}`); // Log 2
+		if (!preload.permElem || !preload.tempElem) {
+			// if initialization hasn't run yet, grab the elements now
+			initPreload();
+		}
 		if (perm) {
 			preload.perm[fn] = img;
 			preload.permElem.append(img);

@@ -117,6 +117,9 @@ window.onload = function () {
 	main.elements.loadingErrorBtn = document.getElementById("loading-error-btn");
 	main.elements.loadingErrorBtn.addEventListener("click", closeError);
 
+	// initialize preload elements before attempting to load any images
+	initPreload();
+
 	let permPreloadUI = ["arrow_left_icon", "arrow_right_icon", "BG_0005", "chara", "checkbox", "checkbox_checked", "Cmn_poppup_frm_s", "Cmn_trust_icon_on", "Eve_raid_top_btn_ep", "Eve_raid_top_btn_pro", "log_button_voice", "menu_close_button", "menu_option_off_left", "menu_option_off_mid", "menu_option_off_right", "menu_option_on_left", "menu_option_on_mid", "menu_option_on_right", "normalquest_section_radar_eff", "off_button_active", "off_button_inactive", "on_button_active", "on_button_inactive", "pc_game_frm", "pc_game_frm_big", "progress_1", "progress_2", "Quest_capter_frm1", "Quest_capter_frm_off", "Quest_capter_frm_on", "Quest_section_base1", "Quest_section_cell_base", "Quest_section_cell_difficulty3_afoot", "Quest_section_number1_off", "Quest_section_number2_off", "Quest_section_number3_off", "Quest_section_number4_off", "Quest_section_number5_off", "Scene_name_base1", "Scene_text_base1", "Scene_text_icon_edn1", "Scene_text_icon_edn2", "Scene_text_icon_edn3_eff", "Scene_text_icon_edn4_eff", "slider_handle", "Title_load_gauge_font_1", "Title_load_gauge_font_2", "Scene_choices_base"];
 	for (let i = 0; i < permPreloadUI.length; i++) {
 		permPreloadUI[i] = "https://raw.githubusercontent.com/random197854/test5/gh-pages/data/ui/" + permPreloadUI[i] + ".webp";

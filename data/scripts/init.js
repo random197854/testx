@@ -502,6 +502,11 @@ function initStoryData(){
     for(let key in storyData){
         let curData = storyData[key];
         let curMeta = STORY[key];
+        // guard against missing metadata, avoids the uncaught TypeError
+        if(!curMeta){
+            console.warn(`initStoryData: missing STORY entry for key "${key}"`);
+            continue; // skip this entry
+        }
         curData.japName = curMeta.japName;
         curData.engName = curMeta.engName;
         curData.type = curMeta.type;
