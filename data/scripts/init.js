@@ -523,6 +523,11 @@ function initStoryData(){
     }
 }
 
+// NOTE: removed eager preloading of all story scripts to avoid resource
+// exhaustion and preserve lazy-loading behavior. Script files referenced
+// by `storyData` remain string paths and are fetched on demand by
+// `loadScript()` in `main.js` / `scene.js` when the user opens a chapter/part.
+
 var maskData = {
 
 }
