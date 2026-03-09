@@ -508,7 +508,7 @@
     "<PAUSE>",
     "<ACTOR_OUT>0,CENTER,linear,1000",
     "<GROUP>",
-    "<TRANSITION>TR37, IN, 200",
+    "<TRANSITION>TR05, IN, 200",
     "<ACTOR>0,chr_t1029b,CENTER, CENTER, NONE, linear, 0",
     "<EFFECT_QUAKE>VERTICAL,1,1000",
     "<SE_PLAY>se045",
