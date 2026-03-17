@@ -1613,5 +1613,11 @@ STORY = {
         banner:"bnr_ev_raid_00059_1_l.png",
         id:266
     },
+    MAPEVENT058:{
+        japName:"地底世界の残響",
+        type:"map",
+        banner:"bnr_ev_map_00058_1_l.png",
+        id:267
+    },
 }
 

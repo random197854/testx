@@ -259,7 +259,7 @@
     "<BG>white,IN, 200",
     "<GROUP>",
     "<SE_PLAY>se037",
-    "<TRANSITION>TR54, IN, 200",
+    "<TRANSITION>TR56, IN, 200",
     "</GROUP>",
     "<EFFECT_QUAKE>VERTICAL,1,1000",
     "<NAME_PLATE>",

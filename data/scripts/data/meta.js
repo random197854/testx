@@ -1418,6 +1418,12 @@ var CV = {
         jap: "神楽坂きよ",
         japAlias: ["神楽坂", "きよ"]
     },
+    SAKURAGI_CHIKA:{
+        eng: "Sakuragi Chika",
+        engAlias: ["Sakuragi", "Chika Sakuragi", "Chika"],
+        jap: "桜城ちか",
+        japAlias: ["桜城", "ちか"]
+    },
     IGNORE:{
         eng: "",
         engAlias: [],
@@ -12039,6 +12045,44 @@ var CHAR = {
             originalCharacter:true,
             artist:ARTIST.NOBUSHITO,
             cv:CV.KASHIWAGI_AIKA
+        }
+    },
+    YUZURIHA_HASSAKU:{
+        base:{
+            name:{
+                eng:"Yuzuhira Hassaku",
+                engAlias:["Yuzuhira", "Hassaku Yuzuhira", "Hassaku"],
+                jap:"杠八朔",
+                japAlias:["杠", "八朔"]
+            },
+            tags:[
+                TAG.GREY_HAIR, TAG.SHOULDER_LENGTH_HAIR,
+                TAG.PINK_EYES,
+                TAG.LIGHT_SKIN, TAG.BIG_BREASTS
+            ],
+            gender:"female",
+            originalCharacter:true,
+            artist:ARTIST.JUMBO_YAMA,
+            cv:CV.SAKURAGI_CHIKA
+        }
+    },
+    ROSALIE_HILL:{
+        base:{
+            name:{
+                eng:"Rosalie Hill",
+                engAlias:["Rosalie", "Hill"],
+                jap:"ロザリー・ヒル",
+                japAlias:["ロザリー", "ヒル"]
+            },
+            tags:[
+                TAG.WHITE_HAIR, TAG.SHOULDER_LENGTH_HAIR,
+                TAG.CYAN_EYES,
+                TAG.DARK_SKIN, TAG.BIG_BREASTS
+            ],
+            gender:"female",
+            originalCharacter:true,
+            artist:ARTIST.YOU_MARU,
+            cv:CV.ITO_MUSUBI
         }
     },
 
@@ -33976,9 +34020,87 @@ var SCENE = {
         },
         ignoredCharacterTags:[]
     },
-
-
-
+    "1025_1":{
+        character:CHAR.HINODE_HIMARI,
+        tags:{
+            female:[
+                TAG.TAIMANIN_OUTFIT, TAG.BREASTS_OUT, TAG.PANTIES_PUSHED_TO_SIDE,
+                TAG.PAIZURI,
+                TAG.BUKKAKE, TAG.VAGINAL_SEX, TAG.NIPPLE_PULLING, TAG.BLOWJOB_PAIZURI, TAG.NAKADASHI
+            ],
+            male:[],
+            location:[TAG.BROTHEL, TAG.PRIVATE],
+            misc:[]
+        },
+        ignoredCharacterTags:[],
+        nextScene:"1025_2"
+    },
+    "1025_2":{
+        character:CHAR.HINODE_HIMARI,
+        tags:{
+            female:[
+                TAG.TAIMANIN_OUTFIT, TAG.BREASTS_OUT, TAG.PANTIES_PUSHED_TO_SIDE,
+                TAG.VAGINAL_SEX, TAG.NAKADASHI, TAG.CUNNILINGUS, TAG.BREAST_GROPING, TAG.BREAST_SUCKING, TAG.NAKADASHI, TAG.STOMACH_INFLATION
+            ],
+            male:[],
+            location:[TAG.BROTHEL, TAG.PRIVATE],
+            misc:[]
+        },
+        ignoredCharacterTags:[]
+    },
+    "1026_1":{
+        character:CHAR.TSUZURUGI_MIKOTO,
+        tags:{
+            female:[
+                TAG.TAIMANIN_OUTFIT, TAG.PANTIES_PUSHED_TO_SIDE, TAG.BREASTS_OUT,
+                TAG.VIBRATOR, TAG.ROTOR, TAG.VAGINAL_SEX, TAG.ANAL_FINGERING, TAG.DOUBLE_PENETRATION, TAG.NAKADASHI
+            ],
+            male:[],
+            location:[TAG.FACILITY, TAG.PRIVATE],
+            misc:[]
+        },
+        ignoredCharacterTags:[],
+        nextScene:"1026_2"
+    },
+    "1026_2":{
+        character:CHAR.TSUZURUGI_MIKOTO,
+        tags:{
+            female:[
+                TAG.TAIMANIN_OUTFIT, TAG.PANTIES_PUSHED_TO_SIDE, TAG.BREASTS_OUT,
+                TAG.TENTACLE_RAPE, TAG.VAGINAL_SEX, TAG.SQUIRTING, TAG.ANAL_SEX, TAG.DOUBLE_PENIS_PENETRATION, TAG.NIPPLE_SUCKING, TAG.BUKKAKE, TAG.NAKADASHI
+            ],
+            male:[TAG.TENTACLE],
+            location:[TAG.FACILITY, TAG.PRIVATE],
+            misc:[]
+        },
+        ignoredCharacterTags:[]
+    },
+    "1027":{
+        character:[CHAR.YUZURIHA_HASSAKU, CHAR.FUUMA_KOTAROU],
+        tags:{
+            female:[
+                TAG.TAIMANIN_OUTFIT, TAG.BREASTS_OUT, TAG.PANTIES_PUSHED_TO_SIDE,
+                TAG.BLOWJOB, TAG.CUM_IN_MOUTH, TAG.VAGINAL_SEX, TAG.NAKADASHI
+            ],
+            male:[],
+            location:[TAG.CLASSROOM, TAG.PRIVATE],
+            misc:[]
+        },
+        ignoredCharacterTags:[]
+    },
+    "1028":{
+        character:[CHAR.ROSALIE_HILL, CHAR.FUUMA_KOTAROU],
+        tags:{
+            female:[
+                TAG.TAIMANIN_OUTFIT, TAG.BREASTS_OUT, TAG.PANTIES_PUSHED_TO_SIDE, TAG.NIPPLE_PIERCING,
+                TAG.VAGINAL_SEX, TAG.SQUIRTING, TAG.INCONTINENCE, TAG.AHEGAO, TAG.VAGINAL_LEAKAGE, TAG.NIPPLE_PULLING, TAG.NAKADASHI
+            ],
+            male:[],
+            location:[TAG.INSIDE, TAG.PRIVATE],
+            misc:[]
+        },
+        ignoredCharacterTags:[]
+    },
     "1029_1":{
         character:[CHAR.KARASHUNA, CHAR.FUUMA_KOTAROU],
         tags:{
