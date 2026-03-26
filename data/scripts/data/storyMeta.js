@@ -1619,5 +1619,11 @@ STORY = {
         banner:"bnr_ev_map_00058_1_l.png",
         id:267
     },
+    CHAPTER209:{
+        japName:"ラグナロク=シンモラ",
+        type:"chapter",
+        chapter:9,
+        id:268
+    },
 }
 

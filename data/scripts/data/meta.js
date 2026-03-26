@@ -34181,6 +34181,61 @@ var SCENE = {
         },
         ignoredCharacterTags:[]
     },
+    "1033_1":{
+        character:CHAR.IGAWA_ASAGI,
+        tags:{
+            female:[
+                TAG.TAIMANIN_OUTFIT, TAG.PROTRUDING_NIPPLES, TAG.NIPPLE_CUTOUTS,
+                TAG.TENTACLE_BONDAGE, TAG.BREAST_GROPING, TAG.FORCEFUL_BLOWJOB, TAG.VAGINAL_SEX, TAG.STOMACH_DEFORMATION, TAG.NIPPLE_SUCKING, TAG.DOUBLE_PENIS_PENETRATION, TAG.NAKADASHI, TAG.CUM_IN_MOUTH, TAG.BUKKAKE, TAG.AHEGAO
+            ],
+            male:[],
+            location:[TAG.FLESH_ROOM, TAG.PRIVATE],
+            misc:[]
+        },
+        ignoredCharacterTags:[],
+        nextScene:"1033_2"
+    },
+    "1033_2":{
+        character:CHAR.IGAWA_ASAGI,
+        tags:{
+            female:[
+                TAG.BABY_DOLL, TAG.BREASTS_OUT, TAG.PANTIES_AROUND_LEG,
+                TAG.PROSTITUTION, TAG.VAGINAL_SEX, TAG.NAKADASHI, TAG.AHEGAO, TAG.SPREAD_ASS, TAG.ANAL_SEX, TAG.VAGINAL_LEAKAGE, TAG.WOMB_TATTOO
+            ],
+            male:[],
+            location:[TAG.BROTHEL, TAG.PRIVATE],
+            misc:[]
+        },
+        ignoredCharacterTags:[]
+    },
+    "1034_1":{
+        character:[CHAR.AMAMIYA_SHISUI, CHAR.FUUMA_KOTAROU],
+        tags:{
+            female:[
+                TAG.TAIMANIN_OUTFIT, TAG.BREASTS_OUT,
+                TAG.HANDJOB, TAG.BUKKAKE, TAG.CUM_LICKUP
+
+            ],
+            male:[],
+            location:[TAG.TRAIN, TAG.SEMI_PUBLIC],
+            misc:[TAG.NO_SEX]
+        },
+        ignoredCharacterTags:[],
+        nextScene:"1034_2"
+    },
+    "1034_2":{
+        character:[CHAR.AMAMIYA_SHISUI, CHAR.FUUMA_KOTAROU],
+        tags:{
+            female:[
+                TAG.TAIMANIN_OUTFIT, TAG.BREASTS_OUT, TAG.PANTIES_PUSHED_TO_SIDE,
+                TAG.VAGINAL_LEAKAGE, TAG.SQUIRTING, TAG.VAGINAL_SEX, TAG.SPANKING, TAG.NAKADASHI
+            ],
+            male:[],
+            location:[TAG.BATHROOM, TAG.PRIVATE],
+            misc:[]
+        },
+        ignoredCharacterTags:[]
+    },
 
 
     
