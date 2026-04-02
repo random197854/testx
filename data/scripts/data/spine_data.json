@@ -11,26 +11,29 @@
 			"data/spine/bankoin_ev_01/bankoin_ev_01_05.skel",
 			"data/spine/bankoin_ev_01/bankoin_ev_01.atlas"
 		],
-        "EV1_idle_01": {
-            "skel": "bankoin_ev_01_01.skel",
-            "atlas": "bankoin_ev_01.atlas"
-        },
-        "EV1_idle_02": {
-            "skel": "bankoin_ev_01_02.skel",
-            "atlas": "bankoin_ev_01.atlas"
-        },
-        "EV1_idle_03": {
-            "skel": "bankoin_ev_01_03.skel",
-            "atlas": "bankoin_ev_01.atlas"
-        },
-        "EV1_idle_04": {
-            "skel": "bankoin_ev_01_04.skel",
-            "atlas": "bankoin_ev_01.atlas"
-        },
-        "EV1_idle_05": {
-            "skel": "bankoin_ev_01_05.skel",
-            "atlas": "bankoin_ev_01.atlas"
-        }
+		"Default": "EV1_Idle_01",
+		"Anim": {
+			"EV1_idle_01": {
+				"skel": "bankoin_ev_01_01.skel",
+				"atlas": "bankoin_ev_01.atlas"
+			},
+			"EV1_idle_02": {
+				"skel": "bankoin_ev_01_02.skel",
+				"atlas": "bankoin_ev_01.atlas"
+			},
+			"EV1_idle_03": {
+				"skel": "bankoin_ev_01_03.skel",
+				"atlas": "bankoin_ev_01.atlas"
+			},
+			"EV1_idle_04": {
+				"skel": "bankoin_ev_01_04.skel",
+				"atlas": "bankoin_ev_01.atlas"
+			},
+			"EV1_idle_05": {
+				"skel": "bankoin_ev_01_05.skel",
+				"atlas": "bankoin_ev_01.atlas"
+			}
+		}
     },
 	"ragnarok_ev_02": {
 		"Assets": [
@@ -44,26 +47,29 @@
 			"data/spine/ragnarok_ev_02/ragnarok_ev_02_05.skel",
 			"data/spine/ragnarok_ev_02/ragnarok_ev_02.atlas"
 		],
-        "EV2_idle_01": {
-            "skel": "ragnarok_ev_02_01.skel",
-            "atlas": "ragnarok_ev_02.atlas"
-        },
-        "EV2_idle_02": {
-            "skel": "ragnarok_ev_02_02.skel",
-            "atlas": "ragnarok_ev_02.atlas"
-        },
-        "EV2_idle_03": {
-            "skel": "ragnarok_ev_02_03.skel",
-            "atlas": "ragnarok_ev_02.atlas"
-        },
-        "EV2_idle_04": {
-            "skel": "ragnarok_ev_02_04.skel",
-            "atlas": "ragnarok_ev_02.atlas"
-        },
-        "EV2_idle_05": {
-            "skel": "ragnarok_ev_02_05.skel",
-            "atlas": "ragnarok_ev_02.atlas"
-        }
+		"Default": "EV2_idle_01",
+		"Anim": {
+			"EV2_idle_01": {
+				"skel": "ragnarok_ev_02_01.skel",
+				"atlas": "ragnarok_ev_02.atlas"
+			},
+			"EV2_idle_02": {
+				"skel": "ragnarok_ev_02_02.skel",
+				"atlas": "ragnarok_ev_02.atlas"
+			},
+			"EV2_idle_03": {
+				"skel": "ragnarok_ev_02_03.skel",
+				"atlas": "ragnarok_ev_02.atlas"
+			},
+			"EV2_idle_04": {
+				"skel": "ragnarok_ev_02_04.skel",
+				"atlas": "ragnarok_ev_02.atlas"
+			},
+			"EV2_idle_05": {
+				"skel": "ragnarok_ev_02_05.skel",
+				"atlas": "ragnarok_ev_02.atlas"
+			}
+		}
     },
 	"20th_asagi_ev_01": {
 		"Assets": [
