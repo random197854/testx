@@ -34236,6 +34236,112 @@ var SCENE = {
         },
         ignoredCharacterTags:[]
     },
+    "1035_1":{
+        character:[CHAR.BANKOUIN_MANGE, CHAR.FUUMA_KOTAROU],
+        tags:{
+            female:[
+                TAG.BIKINI,
+                TAG.HANDJOB, TAG.PAIZURI, TAG.BUKKAKE, TAG.BLOWJOB, TAG.CUM_IN_MOUTH
+            ],
+            male:[TAG.ANILINGUS],
+            location:[TAG.INSIDE, TAG.PRIVATE],
+            misc:[TAG.OVERLAY_XRAY, TAG.NO_SEX]
+        },
+        ignoredCharacterTags:[],
+        nextScene:"1035_2"
+    },
+    "1035_2":{
+        character:[CHAR.BANKOUIN_MANGE, CHAR.FUUMA_KOTAROU],
+        tags:{
+            female:[
+                TAG.NAKED,
+                TAG.CUNNILINGUS, TAG.VAGINAL_SEX, TAG.AHEGAO, TAG.NAKADASHI, TAG.BREAST_GROPING, TAG.DEFLORATION
+            ],
+            male:[],
+            location:[TAG.INSIDE, TAG.PRIVATE],
+            misc:[TAG.OVERLAY_XRAY]
+        },
+        ignoredCharacterTags:[],
+    },
+    "1035_3":{
+        character:[CHAR.BANKOUIN_MANGE, CHAR.FUUMA_KOTAROU],
+        tags:{
+            female:[
+                TAG.NAKED,
+                TAG.CUNNILINGUS, TAG.VAGINAL_SEX, TAG.AHEGAO, TAG.NAKADASHI, TAG.BREAST_GROPING, TAG.DEFLORATION
+            ],
+            male:[],
+            location:[TAG.INSIDE, TAG.PRIVATE],
+            misc:[TAG.OVERLAY_XRAY]
+        },
+        ignoredCharacterTags:[],
+        assetDir:"1035_2"
+    },
+    "1036_1":{
+        character:[CHAR.RAGNAROK, CHAR.FUUMA_KOTAROU],
+        tags:{
+            female:[
+                TAG.BIKINI, TAG.PANTYLESS, TAG.BREASTS_OUT,
+                TAG.FEMDOM, TAG.VAGINAL_SEX, TAG.BUKKAKE, TAG.VAGINAL_LEAKAGE, TAG.NAKADASHI
+            ],
+            male:[],
+            location:[TAG.BEDROOM, TAG.PRIVATE],
+            misc:[]
+        },
+        ignoredCharacterTags:[],
+        nextScene:{normal: "1036_2", animated: "1036_3"}
+    },
+    "1036_2":{
+        character:[CHAR.RAGNAROK, CHAR.FUUMA_KOTAROU],
+        tags:{
+            female:[
+                TAG.BIKINI, TAG.BREASTS_OUT, TAG.STRAP_ON,
+            ],
+            male:[TAG.ANAL_SEX, TAG.BLOWJOB],
+            location:[TAG.BEDROOM, TAG.PRIVATE],
+            misc:[]
+        },
+        ignoredCharacterTags:[],
+    },
+    "1036_3":{
+        character:[CHAR.RAGNAROK, CHAR.FUUMA_KOTAROU],
+        tags:{
+            female:[
+                TAG.BIKINI, TAG.BREASTS_OUT, TAG.STRAP_ON,
+            ],
+            male:[TAG.ANAL_SEX, TAG.BLOWJOB],
+            location:[TAG.BEDROOM, TAG.PRIVATE],
+            misc:[]
+        },
+        ignoredCharacterTags:[],
+        assetDir:"1036_2"
+    },
+    "1037":{
+        character:CHAR.KUMARA_JUN,
+        tags:{
+            female:[
+                TAG.BIKINI, TAG.BREASTS_OUT, TAG.PANTIES_PUSHED_TO_SIDE,
+                TAG.TENTACLE_BONDAGE, TAG.TENTACLE_ROBOT, TAG.NIPPLE_SUCKING, TAG.VAGINAL_SEX, TAG.AHEGAO, TAG.VAGINAL_LEAKAGE, TAG.SQUIRTING, TAG.STOMACH_DEFORMATION, TAG.STOMACH_INFLATION, TAG.NAKADASHI
+            ],
+            male:[],
+            location:[TAG.INSIDE, TAG.PRIVATE],
+            misc:[]
+        },
+        ignoredCharacterTags:[]
+    },
+    "1038":{
+        character:CHAR.KAMITANI_KIKKA,
+        tags:{
+            female:[
+                TAG.BREASTS_OUT,
+                TAG.FOOTJOB, TAG.BARE_FEET, TAG.VISIBLE_SOLES, 
+            ],
+            male:[TAG.NIPPLE_PINCHING],
+            location:[TAG.BATHROOM, TAG.PRIVATE],
+            misc:[TAG.NO_SEX]
+        },
+        ignoredCharacterTags:[]
+    },
 
 
     
@@ -34516,7 +34622,8 @@ var SCENE = {
             misc:[]
         },
         ignoredCharacterTags:[],
-        nextScene:"4009_2"
+        nextScene:"4009_2",
+        assetDir:"4009_1"
     },
     "4010_1":{
         character:CHAR.KURAMOCHI_KEITO,
@@ -34557,7 +34664,8 @@ var SCENE = {
             misc:[]
         },
         ignoredCharacterTags:[],
-        nextScene:"4010_2"
+        nextScene:"4010_2",
+        assetDir:"4010_1"
     },
     "5003_1":{
         character:CHAR.KOKUOUIN_YORUYA,
@@ -34643,7 +34751,8 @@ var SCENE = {
             misc:[TAG.OVERLAY_XRAY]
         },
         ignoredCharacterTags:[],
-        nextScene:"5004_4"
+        nextScene:"5004_4",
+        assetDir:"5004_1"
     },
     "5004_4":{
         character:CHAR.IGAWA_ASAGI,
@@ -34658,7 +34767,8 @@ var SCENE = {
             location:[TAG.BEDROOM, TAG.ON_BED, TAG.PRIVATE],
             misc:[TAG.CUT_IN_XRAY]
         },
-        ignoredCharacterTags:[]
+        ignoredCharacterTags:[],
+        assetDir:"5004_2"
     },
 
 

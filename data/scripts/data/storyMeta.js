@@ -1625,5 +1625,17 @@ STORY = {
         chapter:9,
         id:268
     },
+    STORYEVENT064:{
+        japName:"ラグナロクの凱旋",
+        type:"story",
+        banner:"bnr_ev_story_00064_1_l.png",
+        id:269
+    },
+    APRILFOOLSEVENT008:{
+        japName:"監獄戦艦RPG",
+        type:"story+intro",
+        banner:"bnr_ev_story_00135_1_l.png",
+        id:270
+    },
 }
 
