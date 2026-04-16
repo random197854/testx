@@ -1,4 +1,113 @@
-{
+{	
+  "doni_bogun_ev_01": {
+		"Assets": [
+			"data/spine/doni_bogun_ev_01/doni_bogun_ev_01.png",
+			"data/spine/doni_bogun_ev_01/doni_bogun_ev_012.png",
+			"data/spine/doni_bogun_ev_01/doni_bogun_ev_013.png",
+      "data/spine/doni_bogun_ev_01/doni_bogun_ev_014.png",
+			"data/spine/doni_bogun_ev_01/doni_bogun_ev_01_01.skel",
+			"data/spine/doni_bogun_ev_01/doni_bogun_ev_01_02.skel",
+			"data/spine/doni_bogun_ev_01/doni_bogun_ev_01_03.skel",
+			"data/spine/doni_bogun_ev_01/doni_bogun_ev_01_04.skel",
+			"data/spine/doni_bogun_ev_01/doni_bogun_ev_01_05.skel",
+			"data/spine/doni_bogun_ev_01/doni_bogun_ev_01.atlas"
+		],
+		"Default": "EV1_Idle_01",
+		"Anim": {
+			"EV1_idle_01": {
+				"skel": "doni_bogun_ev_01_01.skel",
+				"atlas": "doni_bogun_ev_01.atlas"
+			},
+			"EV1_idle_02": {
+				"skel": "doni_bogun_ev_01_02.skel",
+				"atlas": "doni_bogun_ev_01.atlas"
+			},
+			"EV1_idle_03": {
+				"skel": "doni_bogun_ev_01_03.skel",
+				"atlas": "doni_bogun_ev_01.atlas"
+			},
+			"EV1_idle_04": {
+				"skel": "doni_bogun_ev_01_04.skel",
+				"atlas": "doni_bogun_ev_01.atlas"
+			},
+			"EV1_idle_05": {
+				"skel": "doni_bogun_ev_01_05.skel",
+				"atlas": "doni_bogun_ev_01.atlas"
+			}
+		}
+    },
+ "rieri_bishop_ev_02": {
+		"Assets": [
+			"data/spine/rieri_bishop_ev_02/rieri_bishop_ev_02.png",
+			"data/spine/rieri_bishop_ev_02/rieri_bishop_ev_022.png",
+			"data/spine/rieri_bishop_ev_02/rieri_bishop_ev_023.png",
+			"data/spine/rieri_bishop_ev_02/rieri_bishop_ev_02_01.skel",
+			"data/spine/rieri_bishop_ev_02/rieri_bishop_ev_02_02.skel",
+			"data/spine/rieri_bishop_ev_02/rieri_bishop_ev_02_03.skel",
+			"data/spine/rieri_bishop_ev_02/rieri_bishop_ev_02_04.skel",
+			"data/spine/rieri_bishop_ev_02/rieri_bishop_ev_02_05.skel",
+			"data/spine/rieri_bishop_ev_02/rieri_bishop_ev_02.atlas"
+		],
+		"Default": "EV2_Idle_01",
+		"Anim": {
+			"EV2_Idle_01": {
+				"skel": "rieri_bishop_ev_02_01.skel",
+				"atlas": "rieri_bishop_ev_02.atlas"
+			},
+			"EV2_idle_02": {
+				"skel": "rieri_bishop_ev_02_02.skel",
+				"atlas": "rieri_bishop_ev_02.atlas"
+			},
+			"EV2_idle_03": {
+				"skel": "rieri_bishop_ev_02_03.skel",
+				"atlas": "rieri_bishop_ev_02.atlas"
+			},
+			"EV2_idle_04": {
+				"skel": "rieri_bishop_ev_02_04.skel",
+				"atlas": "rieri_bishop_ev_02.atlas"
+			},
+			"EV2_idle_05": {
+				"skel": "rieri_bishop_ev_02_05.skel",
+				"atlas": "rieri_bishop_ev_02.atlas"
+			}
+		}
+    },
+  "naomi_evans_ev_01": {
+		"Assets": [
+			"data/spine/naomi_evans_ev_01/naomi_evans_ev_01.png",
+			"data/spine/naomi_evans_ev_01/naomi_evans_ev_012.png",
+			"data/spine/naomi_evans_ev_01/naomi_evans_ev_013.png",
+			"data/spine/naomi_evans_ev_01/naomi_evans_ev_01_01.skel",
+			"data/spine/naomi_evans_ev_01/naomi_evans_ev_01_02.skel",
+			"data/spine/naomi_evans_ev_01/naomi_evans_ev_01_03.skel",
+			"data/spine/naomi_evans_ev_01/naomi_evans_ev_01_04.skel",
+			"data/spine/naomi_evans_ev_01/naomi_evans_ev_01_05.skel",
+			"data/spine/naomi_evans_ev_01/naomi_evans_ev_01.atlas"
+		],
+		"Default": "EV1_Idle_01",
+		"Anim": {
+			"EV1_idle_01": {
+				"skel": "naomi_evans_ev_01_01.skel",
+				"atlas": "naomi_evans_ev_01.atlas"
+			},
+			"EV1_idle_02": {
+				"skel": "naomi_evans_ev_01_02.skel",
+				"atlas": "naomi_evans_ev_01.atlas"
+			},
+			"EV1_idle_03": {
+				"skel": "naomi_evans_ev_01_03.skel",
+				"atlas": "naomi_evans_ev_01.atlas"
+			},
+			"EV1_idle_04": {
+				"skel": "naomi_evans_ev_01_04.skel",
+				"atlas": "naomi_evans_ev_01.atlas"
+			},
+			"EV1_idle_05": {
+				"skel": "naomi_evans_ev_01_05.skel",
+				"atlas": "naomi_evans_ev_01.atlas"
+			}
+		}
+    },
 	"bankoin_ev_01": {
 		"Assets": [
 			"data/spine/bankoin_ev_01/bankoin_ev_01.png",

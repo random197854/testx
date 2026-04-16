@@ -476,6 +476,7 @@
     "\u300cCum, miiinnng............!\u300d",
     "<PAUSE>",
     "<EFFECT_FLASH>WHITE, 1000",
+    "<SE_PLAY>ser_0025",
     "<EV>chr_0186_1e_r18,NONE",
     "<EFFECT_FLASH>WHITE, 1500",
     "<NAME_PLATE>",

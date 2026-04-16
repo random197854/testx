@@ -4537,6 +4537,12 @@ var TAG = {
         aliases:[],
         parents:["BEASTIALITY"]
     },
+
+    ANIMATED: {
+        name:"Animated",
+        aliases:[],
+        parents:[]
+    },
 }
 
 var CHAR = {
@@ -4709,6 +4715,24 @@ var CHAR = {
             gender:"male",
             focus:false,
             originalCharacter:true,
+            artist:ARTIST.IGNORE,
+            cv:CV.IGNORE
+        }
+    },
+    DONNIE_BOGAN: {
+        base: {
+            name:{
+                eng:"Donnie Bogan",
+                engAlias:["Donny", "Donni", "Doni", "Bogun", "Bohgan", "Donny Bogan", "Donni Bogan", "Doni Bogan", "Donnie Bogun", "Donny Bogun", "Donni Bogun", "Doni Bogun", "Donnie Bohgan", "Donny Bohgan", "Donni Bohgan", "Doni Bohgan"],
+                jap:"ドニ・ボーガン",
+                japAlias:["ドニ", "ボーガン"]
+            },
+            tags:[
+                
+            ],
+            gender:"male",
+            focus:false,
+            originalCharacter:false,
             artist:ARTIST.IGNORE,
             cv:CV.IGNORE
         }
@@ -34248,7 +34272,7 @@ var SCENE = {
             misc:[TAG.OVERLAY_XRAY, TAG.NO_SEX]
         },
         ignoredCharacterTags:[],
-        nextScene:"1035_2"
+        nextScene:{normal: "1035_2", animated: "1035_3"}
     },
     "1035_2":{
         character:[CHAR.BANKOUIN_MANGE, CHAR.FUUMA_KOTAROU],
@@ -34272,7 +34296,7 @@ var SCENE = {
             ],
             male:[],
             location:[TAG.INSIDE, TAG.PRIVATE],
-            misc:[TAG.OVERLAY_XRAY]
+            misc:[TAG.OVERLAY_XRAY, TAG.ANIMATED]
         },
         ignoredCharacterTags:[],
         assetDir:"1035_2"
@@ -34311,7 +34335,7 @@ var SCENE = {
             ],
             male:[TAG.ANAL_SEX, TAG.BLOWJOB],
             location:[TAG.BEDROOM, TAG.PRIVATE],
-            misc:[]
+            misc:[TAG.ANIMATED]
         },
         ignoredCharacterTags:[],
         assetDir:"1036_2"
@@ -34338,6 +34362,163 @@ var SCENE = {
             ],
             male:[TAG.NIPPLE_PINCHING],
             location:[TAG.BATHROOM, TAG.PRIVATE],
+            misc:[TAG.NO_SEX]
+        },
+        ignoredCharacterTags:[]
+    },
+    "1039_1":{
+        character:CHAR.NAOMI_EVANS,
+        tags:{
+            female:[
+                TAG.COMPLETELY_NAKED,
+                TAG.MASTURBATION, TAG.BREAST_GROPING, TAG.CLIT_PLAY, TAG.AHEGAO
+            ],
+            male:[],
+            location:[TAG.BATHROOM, TAG.PRIVATE],
+            misc:[TAG.NO_SEX]
+        },
+        ignoredCharacterTags:[],
+        artistOverwrite: ARTIST.SANO_TOSHIHIDE,
+        nextScene:"1039_2"
+    },
+    "1039_2":{
+        character:[CHAR.RIERI_BISHOP, CHAR.DONNIE_BOGAN],
+        tags:{
+            female:[
+                TAG.BREASTS_OUT, TAG.THIGH_HIGH_STOCKINGS,
+                TAG.BUKKAKE, TAG.VAGINAL_SEX, TAG.NAKADASHI, TAG.AHEGAO, TAG.VAGINAL_LEAKAGE
+            ],
+            male:[],
+            location:[TAG.BEDROOM, TAG.PRIVATE],
+            misc:[TAG.OVERLAY_XRAY]
+        },
+        ignoredCharacterTags:[],
+        artistOverwrite: ARTIST.SANO_TOSHIHIDE
+    },
+    "1039_3":{
+        character:CHAR.NAOMI_EVANS,
+        tags:{
+            female:[
+                TAG.COMPLETELY_NAKED,
+                TAG.MASTURBATION, TAG.BREAST_GROPING, TAG.CLIT_PLAY, TAG.AHEGAO
+            ],
+            male:[],
+            location:[TAG.BATHROOM, TAG.PRIVATE],
+            misc:[TAG.ANIMATED]
+        },
+        ignoredCharacterTags:[],
+        artistOverwrite: ARTIST.SANO_TOSHIHIDE,
+        nextScene:"1039_2",
+        assetDir:"1039_1"
+    },
+    "1040_1":{
+        character:CHAR.RIERI_BISHOP,
+        tags:{
+            female:[
+                TAG.TAIMANIN_OUTFIT, TAG.NIPPLE_CUTOUTS, TAG.PANTIES_PUSHED_TO_SIDE, TAG.THIGH_HIGH_STOCKINGS,
+                TAG.PROTRUDING_NIPPLES, TAG.TENTACLE_BONDAGE, TAG.CLIT_INJECTION, TAG.BREAST_INJECTION, TAG.NOSE_HOOK, TAG.VAGINAL_SEX, TAG.TENTACLE_RAPE, TAG.AHEGAO, TAG.NAKADASHI, TAG.INCONTINENCE
+            ],
+            male:[],
+            location:[TAG.OUTSIDE, TAG.SEMI_PUBLIC],
+            misc:[]
+        },
+        ignoredCharacterTags:[],
+        nextScene:{normal: "1040_2", animated: "1040_3"}
+    },
+    "1040_2":{
+        character:CHAR.RIERI_BISHOP,
+        tags:{
+            female:[
+                TAG.TAIMANIN_OUTFIT, TAG.NIPPLE_CUTOUTS, TAG.PANTYLESS, TAG.THIGH_HIGH_STOCKINGS,
+                TAG.BONDAGE, TAG.ANAL_SEX, TAG.NAKADASHI, TAG.AHEGAO, TAG.BREAST_GROPING, TAG.NIPPLE_PULLING, TAG.MONSTER_BIRTH
+            ],
+            male:[],
+            location:[TAG.FLESH_ROOM, TAG.PRIVATE],
+            misc:[]
+        },
+        ignoredCharacterTags:[]
+    },
+    "1040_3":{
+        character:CHAR.RIERI_BISHOP,
+        tags:{
+            female:[
+                TAG.TAIMANIN_OUTFIT, TAG.NIPPLE_CUTOUTS, TAG.PANTYLESS, TAG.THIGH_HIGH_STOCKINGS,
+                TAG.BONDAGE, TAG.ANAL_SEX, TAG.NAKADASHI, TAG.AHEGAO, TAG.BREAST_GROPING, TAG.NIPPLE_PULLING, TAG.MONSTER_BIRTH
+            ],
+            male:[],
+            location:[TAG.FLESH_ROOM, TAG.PRIVATE],
+            misc:[TAG.ANIMATED]
+        },
+        ignoredCharacterTags:[],
+        assetDir:"1040_2"
+    },
+    "1041_1":{
+        character:CHAR.NAOMI_EVANS,
+        tags:{
+            female:[
+                TAG.BREASTS_OUT, TAG.PANTYLESS, TAG.THIGH_HIGH_STOCKINGS,
+                TAG.VAGINAL_FINGERING, TAG.BREAST_GROPING, TAG.VAGINAL_SEX, TAG.BUKKAKE, TAG.AHEGAO
+            ],
+            male:[],
+            location:[TAG.INSIDE, TAG.PRIVATE],
+            misc:[]
+        },
+        ignoredCharacterTags:[],
+        artistOverwrite: ARTIST.YOU_MARU,
+        nextScene:"1041_2",
+    },
+    "1041_2":{
+        character:CHAR.NAOMI_EVANS,
+        tags:{
+            female:[
+                TAG.BREASTS_OUT, TAG.PANTIES_PUSHED_TO_SIDE, TAG.THIGH_HIGH_STOCKINGS,
+                TAG.ANAL_FINGERING, TAG.BUTT_PLUG, TAG.VAGINAL_FINGERING, TAG.VAGINAL_SEX, TAG.AHEGAO, TAG.NAKADASHI, TAG.SCAT
+            ],
+            male:[],
+            location:[TAG.PRISON_CELL, TAG.PRIVATE],
+            misc:[]
+        },
+        ignoredCharacterTags:[],
+        artistOverwrite: ARTIST.YOU_MARU,
+    },
+    "1041_3":{
+        character:CHAR.NAOMI_EVANS,
+        tags:{
+            female:[
+                TAG.BREASTS_OUT, TAG.PANTYLESS, TAG.THIGH_HIGH_STOCKINGS,
+                TAG.VAGINAL_FINGERING, TAG.BREAST_GROPING, TAG.VAGINAL_SEX, TAG.BUKKAKE, TAG.AHEGAO
+            ],
+            male:[],
+            location:[],
+            misc:[TAG.ANIMATED]
+        },
+        ignoredCharacterTags:[],
+        artistOverwrite: ARTIST.YOU_MARU,
+        nextScene:"1041_2",
+        assetDir:"1041_1"
+    },
+    "1042":{
+        character:[CHAR.AREKKI, CHAR.DONNIE_BOGAN],
+        tags:{
+            female:[
+                TAG.THIGH_HIGH_STOCKINGS, TAG.PANTYLESS, TAG.BREASTS_OUT,
+                TAG.VAGINAL_SEX, TAG.DEFLORATION, TAG.NAKADASHI, TAG.ELECTRIC_SHOCKS, TAG.CLIT_PLAY, TAG.INCONTINENCE, TAG.AHEGAO
+            ],
+            male:[],
+            location:[TAG.BEDROOM, TAG.ON_BED, TAG.PRIVATE],
+            misc:[TAG.OVERLAY_XRAY]
+        },
+        ignoredCharacterTags:[]
+    },
+    "1043":{
+        character:[CHAR.ICHIMONJI_MIIKO, CHAR.DONNIE_BOGAN],
+        tags:{
+            female:[
+                TAG.PROTRUDING_NIPPLES, TAG.BREASTS_OUT,
+                TAG.BREAST_GROPING, TAG.NIPPLE_SUCKING
+            ],
+            male:[],
+            location:[TAG.INSIDE, TAG.PRIVATE],
             misc:[TAG.NO_SEX]
         },
         ignoredCharacterTags:[]
@@ -34619,7 +34800,7 @@ var SCENE = {
             ],
             male:[],
             location:[TAG.BEDROOM, TAG.ON_BED, TAG.PRIVATE],
-            misc:[]
+            misc:[TAG.ANIMATED]
         },
         ignoredCharacterTags:[],
         nextScene:"4009_2",
@@ -34661,7 +34842,7 @@ var SCENE = {
             ],
             male:[TAG.ANILINGUS],
             location:[],
-            misc:[]
+            misc:[TAG.ANIMATED]
         },
         ignoredCharacterTags:[],
         nextScene:"4010_2",
@@ -34748,7 +34929,7 @@ var SCENE = {
             ],
             male:[],
             location:[TAG.BEDROOM, TAG.ON_BED, TAG.PRIVATE],
-            misc:[TAG.OVERLAY_XRAY]
+            misc:[TAG.OVERLAY_XRAY, TAG.ANIMATED]
         },
         ignoredCharacterTags:[],
         nextScene:"5004_4",
@@ -34765,7 +34946,7 @@ var SCENE = {
             ],
             male:[],
             location:[TAG.BEDROOM, TAG.ON_BED, TAG.PRIVATE],
-            misc:[TAG.CUT_IN_XRAY]
+            misc:[TAG.CUT_IN_XRAY, TAG.ANIMATED]
         },
         ignoredCharacterTags:[],
         assetDir:"5004_2"

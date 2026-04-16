@@ -1897,5 +1897,11 @@ STORY = {
         banner:"bnr_ev_story_00135_1_l.webp",
         id:270
     },
+    RAIDEVENT060:{
+        japName:"監獄戦艦×対魔忍",
+        type:"raid",
+        banner:"bnr_ev_raid_00060_1_l.webp",
+        id:271
+    },
 }
 
