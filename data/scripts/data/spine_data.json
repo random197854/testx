@@ -1,4 +1,77 @@
 {	
+    "hinagiku_momota_ev_01": {
+		"Assets": [
+			"data/spine/hinagiku_momota_ev_01/hinagiku_momota_ev_01.png",
+			"data/spine/hinagiku_momota_ev_01/hinagiku_momota_ev_012.png",
+			"data/spine/hinagiku_momota_ev_01/hinagiku_momota_ev_013.png",
+      "data/spine/hinagiku_momota_ev_01/hinagiku_momota_ev_014.png",
+			"data/spine/hinagiku_momota_ev_01/hinagiku_momota_ev_01_01.skel",
+			"data/spine/hinagiku_momota_ev_01/hinagiku_momota_ev_01_02.skel",
+			"data/spine/hinagiku_momota_ev_01/hinagiku_momota_ev_01_03.skel",
+			"data/spine/hinagiku_momota_ev_01/hinagiku_momota_ev_01_04.skel",
+			"data/spine/hinagiku_momota_ev_01/hinagiku_momota_ev_01_05.skel",
+			"data/spine/hinagiku_momota_ev_01/hinagiku_momota_ev_01.atlas"
+		],
+		"Default": "EV1_Idle_01",
+		"Anim": {
+			"EV1_idle_01": {
+				"skel": "hinagiku_momota_ev_01_01.skel",
+				"atlas": "hinagiku_momota_ev_01.atlas"
+			},
+			"EV1_idle_02": {
+				"skel": "hinagiku_momota_ev_01_02.skel",
+				"atlas": "hinagiku_momota_ev_01.atlas"
+			},
+			"EV1_idle_03": {
+				"skel": "hinagiku_momota_ev_01_03.skel",
+				"atlas": "hinagiku_momota_ev_01.atlas"
+			},
+			"EV1_idle_04": {
+				"skel": "hinagiku_momota_ev_01_04.skel",
+				"atlas": "hinagiku_momota_ev_01.atlas"
+			},
+			"EV1_idle_05": {
+				"skel": "hinagiku_momota_ev_01_05.skel",
+				"atlas": "hinagiku_momota_ev_01.atlas"
+			}
+		}
+    },
+  "alektra_ev_02": {
+		"Assets": [
+			"data/spine/alektra_ev_02/alektra_ev_02.png",
+			"data/spine/alektra_ev_02/alektra_ev_022.png",
+			"data/spine/alektra_ev_02/alektra_ev_023.png",
+			"data/spine/alektra_ev_02/alektra_ev_02_01.skel",
+			"data/spine/alektra_ev_02/alektra_ev_02_02.skel",
+			"data/spine/alektra_ev_02/alektra_ev_02_03.skel",
+			"data/spine/alektra_ev_02/alektra_ev_02_04.skel",
+			"data/spine/alektra_ev_02/alektra_ev_02_05.skel",
+			"data/spine/alektra_ev_02/alektra_ev_02.atlas"
+		],
+		"Default": "EV2_Idle_01",
+		"Anim": {
+			"EV2_Idle_01": {
+				"skel": "alektra_ev_02_01.skel",
+				"atlas": "alektra_ev_02.atlas"
+			},
+			"EV2_idle_02": {
+				"skel": "alektra_ev_02_02.skel",
+				"atlas": "alektra_ev_02.atlas"
+			},
+			"EV2_idle_03": {
+				"skel": "alektra_ev_02_03.skel",
+				"atlas": "alektra_ev_02.atlas"
+			},
+			"EV2_idle_04": {
+				"skel": "alektra_ev_02_04.skel",
+				"atlas": "alektra_ev_02.atlas"
+			},
+			"EV2_idle_05": {
+				"skel": "alektra_ev_02_05.skel",
+				"atlas": "alektra_ev_02.atlas"
+			}
+		}
+    },
   "doni_bogun_ev_01": {
 		"Assets": [
 			"data/spine/doni_bogun_ev_01/doni_bogun_ev_01.png",
