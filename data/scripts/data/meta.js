@@ -12109,6 +12109,25 @@ var CHAR = {
             cv:CV.ITO_MUSUBI
         }
     },
+    MOMOTA_HINAGIKU:{
+        base:{
+            name:{
+                eng:"Momota Hinagiku",
+                engAlias:["Momota", "Hinagiku Momota", "Hinagiku"],
+                jap:"百田雛菊",
+                japAlias:["百田", "雛菊"]
+            },
+            tags:[
+                TAG.BROWN_HAIR, TAG.LONG_HAIR,
+                TAG.BROWN_EYES,
+                TAG.LIGHT_SKIN, TAG.HUGE_BREASTS
+            ],
+            gender:"female",
+            originalCharacter:true,
+            artist:ARTIST.KIRIN_P,
+            cv:CV.SUZUKA
+        }
+    },
 
     // :{
     //     base:{
@@ -34522,6 +34541,89 @@ var SCENE = {
             misc:[TAG.NO_SEX]
         },
         ignoredCharacterTags:[]
+    },
+    "1044_1":{
+        character:CHAR.ELEKTRA,
+        tags:{
+            female:[
+                TAG.NAKED, TAG.THIGH_HIGH_STOCKINGS, TAG.EVENING_GLOVES,
+                TAG.BREAST_GROPING, TAG.VAGINAL_FINGERING, TAG.VAGINAL_SEX, TAG.BLOWJOB, TAG.DOUBLE_PENIS_PENETRATION, TAG.NAKADASHI, TAG.CUM_IN_MOUTH, TAG.BUKKAKE
+            ],
+            male:[],
+            location:[TAG.INSIDE, TAG.PRIVATE],
+            misc:[]
+        },
+        ignoredCharacterTags:[],
+        nextScene:"1044_2"
+    },
+    "1044_2":{
+        character:CHAR.ELEKTRA,
+        tags:{
+            female:[
+                TAG.NAKED, TAG.THIGH_HIGH_STOCKINGS, TAG.EVENING_GLOVES,
+                TAG.TENTACLE_BONDAGE, TAG.BREAST_GROPING, TAG.TENTACLE_RAPE, TAG.NIPPLE_PULLING, TAG.VAGINAL_SEX, TAG.LACTATION, TAG.BREAST_SUCKING, TAG.NAKADASHI, TAG.AHEGAO
+            ],
+            male:[TAG.TENTACLE],
+            location:[TAG.FLESH_ROOM, TAG.PRIVATE],
+            misc:[TAG.CUT_IN_XRAY]
+        },
+        ignoredCharacterTags:[]
+    },
+    "1044_3":{
+        character:CHAR.ELEKTRA,
+        tags:{
+            female:[
+                TAG.NAKED, TAG.THIGH_HIGH_STOCKINGS, TAG.EVENING_GLOVES,
+                TAG.TENTACLE_BONDAGE, TAG.BREAST_GROPING, TAG.TENTACLE_RAPE, TAG.NIPPLE_PULLING, TAG.VAGINAL_SEX, TAG.LACTATION, TAG.BREAST_SUCKING, TAG.NAKADASHI, TAG.AHEGAO
+            ],
+            male:[TAG.TENTACLE],
+            location:[TAG.FLESH_ROOM, TAG.PRIVATE],
+            misc:[TAG.CUT_IN_XRAY, TAG.ANIMATED]
+        },
+        ignoredCharacterTags:[],
+        assetDir: "1044_2",
+    },
+    "1045_1":{
+        character:CHAR.MOMOTA_HINAGIKU,
+        tags:{
+            female:[
+                TAG.TAIMANIN_OUTFIT, TAG.NIPPLE_CUTOUTS, TAG.VAGINAL_CUTOUT,
+                TAG.LOTION, TAG.VAGINAL_FINGERING, TAG.VIBRATOR, TAG.VAGINAL_INSERTION, TAG.CERVIX_PENETRATION, TAG.AHEGAO, TAG.SQUIRTING, TAG.NIPPLE_PIERCING, TAG.GENITAL_PIERCING, TAG.KISSING
+            ],
+            male:[],
+            location:[TAG.INSIDE, TAG.ON_BED, TAG.PRIVATE],
+            misc:[TAG.CUT_IN_XRAY, TAG.NO_SEX]
+        },
+        ignoredCharacterTags:[],
+        nextScene:"1045_2"
+    },
+    "1045_2":{
+        character:CHAR.MOMOTA_HINAGIKU,
+        tags:{
+            female:[
+                TAG.TAIMANIN_OUTFIT, TAG.NIPPLE_CUTOUTS, TAG.VAGINAL_CUTOUT,
+                TAG.VAGINAL_SEX, TAG.AHEGAO, TAG.BUKKAKE, TAG.NAKADASHI, TAG.WOMB_TATTOO, TAG.NIPPLE_PIERCING, TAG.LINKED_PIERCINGS, TAG.LACTATION, TAG.INCONTINENCE
+            ],
+            male:[],
+            location:[TAG.INSIDE, TAG.ON_BED, TAG.PRIVATE],
+            misc:[TAG.OVERLAY_XRAY]
+        },
+        ignoredCharacterTags:[]
+    },
+    "1045_3":{
+        character:CHAR.MOMOTA_HINAGIKU,
+        tags:{
+            female:[
+                TAG.TAIMANIN_OUTFIT, TAG.NIPPLE_CUTOUTS, TAG.VAGINAL_CUTOUT,
+                TAG.LOTION, TAG.VAGINAL_FINGERING, TAG.VIBRATOR, TAG.VAGINAL_INSERTION, TAG.CERVIX_PENETRATION, TAG.AHEGAO, TAG.SQUIRTING, TAG.NIPPLE_PIERCING, TAG.GENITAL_PIERCING, TAG.KISSING
+            ],
+            male:[],
+            location:[TAG.INSIDE, TAG.ON_BED, TAG.PRIVATE],
+            misc:[TAG.CUT_IN_XRAY, TAG.NO_SEX, TAG.ANIMATED]
+        },
+        ignoredCharacterTags:[],
+        assetDir: "1045_1",
+        nextScene:"1045_2"
     },
 
 

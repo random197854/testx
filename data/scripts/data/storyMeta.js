@@ -1643,5 +1643,11 @@ STORY = {
         banner:"bnr_ev_raid_00060_1_l.png",
         id:271
     },
+    MAPEVENT059:{
+        japName:"時をかける対魔忍",
+        type:"map",
+        banner:"bnr_ev_map_00059_1_l.png",
+        id:272
+    },
 }
 
