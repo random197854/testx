@@ -1,10 +1,9 @@
-{	
-    "hinagiku_momota_ev_01": {
+{
+	"hinagiku_momota_ev_01": {
 		"Assets": [
 			"data/spine/hinagiku_momota_ev_01/hinagiku_momota_ev_01.png",
 			"data/spine/hinagiku_momota_ev_01/hinagiku_momota_ev_012.png",
 			"data/spine/hinagiku_momota_ev_01/hinagiku_momota_ev_013.png",
-      "data/spine/hinagiku_momota_ev_01/hinagiku_momota_ev_014.png",
 			"data/spine/hinagiku_momota_ev_01/hinagiku_momota_ev_01_01.skel",
 			"data/spine/hinagiku_momota_ev_01/hinagiku_momota_ev_01_02.skel",
 			"data/spine/hinagiku_momota_ev_01/hinagiku_momota_ev_01_03.skel",
@@ -35,8 +34,8 @@
 				"atlas": "hinagiku_momota_ev_01.atlas"
 			}
 		}
-    },
-  "alektra_ev_02": {
+	},
+	"alektra_ev_02": {
 		"Assets": [
 			"data/spine/alektra_ev_02/alektra_ev_02.png",
 			"data/spine/alektra_ev_02/alektra_ev_022.png",
@@ -71,13 +70,13 @@
 				"atlas": "alektra_ev_02.atlas"
 			}
 		}
-    },
-  "doni_bogun_ev_01": {
+	},
+	"doni_bogun_ev_01": {
 		"Assets": [
 			"data/spine/doni_bogun_ev_01/doni_bogun_ev_01.png",
 			"data/spine/doni_bogun_ev_01/doni_bogun_ev_012.png",
 			"data/spine/doni_bogun_ev_01/doni_bogun_ev_013.png",
-      "data/spine/doni_bogun_ev_01/doni_bogun_ev_014.png",
+			"data/spine/doni_bogun_ev_01/doni_bogun_ev_014.png",
 			"data/spine/doni_bogun_ev_01/doni_bogun_ev_01_01.skel",
 			"data/spine/doni_bogun_ev_01/doni_bogun_ev_01_02.skel",
 			"data/spine/doni_bogun_ev_01/doni_bogun_ev_01_03.skel",
@@ -108,8 +107,8 @@
 				"atlas": "doni_bogun_ev_01.atlas"
 			}
 		}
-    },
- "rieri_bishop_ev_02": {
+	},
+	"rieri_bishop_ev_02": {
 		"Assets": [
 			"data/spine/rieri_bishop_ev_02/rieri_bishop_ev_02.png",
 			"data/spine/rieri_bishop_ev_02/rieri_bishop_ev_022.png",
@@ -144,8 +143,8 @@
 				"atlas": "rieri_bishop_ev_02.atlas"
 			}
 		}
-    },
-  "naomi_evans_ev_01": {
+	},
+	"naomi_evans_ev_01": {
 		"Assets": [
 			"data/spine/naomi_evans_ev_01/naomi_evans_ev_01.png",
 			"data/spine/naomi_evans_ev_01/naomi_evans_ev_012.png",
@@ -180,7 +179,7 @@
 				"atlas": "naomi_evans_ev_01.atlas"
 			}
 		}
-    },
+	},
 	"bankoin_ev_01": {
 		"Assets": [
 			"data/spine/bankoin_ev_01/bankoin_ev_01.png",
@@ -216,7 +215,7 @@
 				"atlas": "bankoin_ev_01.atlas"
 			}
 		}
-    },
+	},
 	"ragnarok_ev_02": {
 		"Assets": [
 			"data/spine/ragnarok_ev_02/ragnarok_ev_02.png",
@@ -252,7 +251,7 @@
 				"atlas": "ragnarok_ev_02.atlas"
 			}
 		}
-    },
+	},
 	"20th_asagi_ev_01": {
 		"Assets": [
 			"data/spine/20th_asagi_ev_01/20th_asagi_ev_01.png",
