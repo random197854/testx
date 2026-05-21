@@ -34625,6 +34625,91 @@ var SCENE = {
         assetDir: "1045_1",
         nextScene:"1045_2"
     },
+    "1046_1":{
+        character:[CHAR.KUZUMI_MIONA, CHAR.FUUMA_KOTAROU],
+        tags:{
+            female:[
+                TAG.TAIMANIN_OUTFIT, TAG.BREASTS_OUT, TAG.PANTIES_PUSHED_TO_SIDE, TAG.LEOTARD,
+                TAG.BLOWJOB_PAIZURI, TAG.CUNNILINGUS, TAG.CUM_IN_MOUTH
+            ],
+            male:[],
+            location:[TAG.BEDROOM, TAG.ON_BED, TAG.PRIVATE],
+            misc:[]
+        },
+        ignoredCharacterTags:[],
+        nextScene:"1046_2"
+    },
+    "1046_2":{
+        character:[CHAR.KUZUMI_MIONA, CHAR.FUUMA_KOTAROU],
+        tags:{
+            female:[
+                TAG.TAIMANIN_OUTFIT, TAG.BREASTS_OUT, TAG.PANTIES_PUSHED_TO_SIDE, TAG.LEOTARD,
+                TAG.VAGINAL_SEX, TAG.USED_CONDOMS_EXPOSITION, TAG.NAKADASHI, TAG.DICK_CLEANING_BLOWJOB, TAG.DOUBLE_PEACE_SIGN
+            ],
+            male:[],
+            location:[TAG.BEDROOM, TAG.ON_BED, TAG.PRIVATE],
+            misc:[TAG.OVERLAY_XRAY]
+        },
+        ignoredCharacterTags:[]
+    },
+    "1046_3":{
+        character:[CHAR.KUZUMI_MIONA, CHAR.FUUMA_KOTAROU],
+        tags:{
+            female:[
+                TAG.TAIMANIN_OUTFIT, TAG.BREASTS_OUT, TAG.PANTIES_PUSHED_TO_SIDE, TAG.LEOTARD,
+                TAG.BLOWJOB_PAIZURI, TAG.CUNNILINGUS, TAG.CUM_IN_MOUTH
+            ],
+            male:[],
+            location:[TAG.BEDROOM, TAG.ON_BED, TAG.PRIVATE],
+            misc:[TAG.ANIMATED]
+        },
+        ignoredCharacterTags:[],
+        assetDir:"1046_1",
+        nextScene:"1046_2"
+    },
+    "1047_1":{
+        character:[CHAR.VASUKI, CHAR.FUUMA_KOTAROU],
+        tags:{
+            female:[
+                TAG.BREASTS_OUT, TAG.BREAST_CUTOUTS,
+                TAG.PAIZURI, TAG.BUKKAKE
+            ],
+            male:[],
+            location:[TAG.BEDROOM, TAG.ON_BED, TAG.PRIVATE],
+            misc:[]
+        },
+        ignoredCharacterTags:[],
+        nextScene:"1047_2"
+    },
+    "1047_2":{
+        character:[CHAR.VASUKI, CHAR.FUUMA_KOTAROU],
+        tags:{
+            female:[
+                TAG.TAIMANIN_OUTFIT, TAG.BREASTS_OUT, TAG.LEOTARD, TAG.THIGH_HIGH_STOCKINGS, TAG.PANTIES_PUSHED_TO_SIDE,
+                TAG.VAGINAL_SEX, TAG.NAKADASHI, TAG.AHEGAO
+            ],
+            male:[],
+            location:[TAG.BEDROOM, TAG.ON_BED, TAG.PRIVATE],
+            misc:[]
+        },
+        ignoredCharacterTags:[]
+    },
+    "1047_3":{
+        character:[CHAR.VASUKI, CHAR.FUUMA_KOTAROU],
+        tags:{
+            female:[
+                TAG.BREASTS_OUT, TAG.BREAST_CUTOUTS,
+                TAG.PAIZURI, TAG.BUKKAKE
+            ],
+            male:[],
+            location:[TAG.BEDROOM, TAG.ON_BED, TAG.PRIVATE],
+            misc:[]
+        },
+        ignoredCharacterTags:[],
+        assetDir:"1047_1",
+        nextScene:"1047_2"
+    },
+    
 
 
     

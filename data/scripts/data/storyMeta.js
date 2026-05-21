@@ -1649,5 +1649,17 @@ STORY = {
         banner:"bnr_ev_map_00059_1_l.png",
         id:272
     },
+    CHAPTER210:{
+        japName:"六波羅",
+        type:"chapter",
+        chapter:10,
+        id:273
+    },
+    STORYEVENT065:{
+        japName:"キングスオーダー",
+        type:"story",
+        banner:"bnr_ev_story_00065_1_l.png",
+        id:274
+    },
 }
 

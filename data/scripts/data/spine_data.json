@@ -1,4 +1,148 @@
 {
+	"mizuki_shiranui_ev_02": {
+		"Assets": [
+			"data/spine/mizuki_shiranui_ev_02/mizuki_shiranui_ev_02.png",
+			"data/spine/mizuki_shiranui_ev_02/mizuki_shiranui_ev_022.png",
+			"data/spine/mizuki_shiranui_ev_02/mizuki_shiranui_ev_023.png",
+			"data/spine/mizuki_shiranui_ev_02/mizuki_shiranui_ev_02_01.skel",
+			"data/spine/mizuki_shiranui_ev_02/mizuki_shiranui_ev_02_02.skel",
+			"data/spine/mizuki_shiranui_ev_02/mizuki_shiranui_ev_02_03.skel",
+			"data/spine/mizuki_shiranui_ev_02/mizuki_shiranui_ev_02_04.skel",
+			"data/spine/mizuki_shiranui_ev_02/mizuki_shiranui_ev_02_05.skel",
+			"data/spine/mizuki_shiranui_ev_02/mizuki_shiranui_ev_02.atlas"
+		],
+		"Default": "EV2_Idle_01",
+		"Anim": {
+			"EV2_Idle_01": {
+				"skel": "mizuki_shiranui_ev_02_01.skel",
+				"atlas": "mizuki_shiranui_ev_02.atlas"
+			},
+			"EV2_idle_02": {
+				"skel": "mizuki_shiranui_ev_02_02.skel",
+				"atlas": "mizuki_shiranui_ev_02.atlas"
+			},
+			"EV2_idle_03": {
+				"skel": "mizuki_shiranui_ev_02_03.skel",
+				"atlas": "mizuki_shiranui_ev_02.atlas"
+			},
+			"EV2_idle_04": {
+				"skel": "mizuki_shiranui_ev_02_04.skel",
+				"atlas": "mizuki_shiranui_ev_02.atlas"
+			},
+			"EV2_idle_05": {
+				"skel": "mizuki_shiranui_ev_02_05.skel",
+				"atlas": "mizuki_shiranui_ev_02.atlas"
+			}
+		}
+	},
+	"hidou_riri_ev_02": {
+		"Assets": [
+			"data/spine/hidou_riri_ev_02/hidou_riri_ev_02.png",
+			"data/spine/hidou_riri_ev_02/hidou_riri_ev_022.png",
+			"data/spine/hidou_riri_ev_02/hidou_riri_ev_023.png",
+			"data/spine/hidou_riri_ev_02/hidou_riri_ev_02_01.skel",
+			"data/spine/hidou_riri_ev_02/hidou_riri_ev_02_02.skel",
+			"data/spine/hidou_riri_ev_02/hidou_riri_ev_02_03.skel",
+			"data/spine/hidou_riri_ev_02/hidou_riri_ev_02_04.skel",
+			"data/spine/hidou_riri_ev_02/hidou_riri_ev_02_05.skel",
+			"data/spine/hidou_riri_ev_02/hidou_riri_ev_02.atlas"
+		],
+		"Default": "EV2_Idle_01",
+		"Anim": {
+			"EV2_Idle_01": {
+				"skel": "hidou_riri_ev_02_01.skel",
+				"atlas": "hidou_riri_ev_02.atlas"
+			},
+			"EV2_idle_02": {
+				"skel": "hidou_riri_ev_02_02.skel",
+				"atlas": "hidou_riri_ev_02.atlas"
+			},
+			"EV2_idle_03": {
+				"skel": "hidou_riri_ev_02_03.skel",
+				"atlas": "hidou_riri_ev_02.atlas"
+			},
+			"EV2_idle_04": {
+				"skel": "hidou_riri_ev_02_04.skel",
+				"atlas": "hidou_riri_ev_02.atlas"
+			},
+			"EV2_idle_05": {
+				"skel": "hidou_riri_ev_02_05.skel",
+				"atlas": "hidou_riri_ev_02.atlas"
+			}
+		}
+	},
+	"vasuki_ev_01": {
+		"Assets": [
+			"data/spine/vasuki_ev_01/vasuki_ev_01.png",
+			"data/spine/vasuki_ev_01/vasuki_ev_012.png",
+			"data/spine/vasuki_ev_01/vasuki_ev_013.png",
+			"data/spine/vasuki_ev_01/vasuki_ev_01_01.skel",
+			"data/spine/vasuki_ev_01/vasuki_ev_01_02.skel",
+			"data/spine/vasuki_ev_01/vasuki_ev_01_03.skel",
+			"data/spine/vasuki_ev_01/vasuki_ev_01_04.skel",
+			"data/spine/vasuki_ev_01/vasuki_ev_01_05.skel",
+			"data/spine/vasuki_ev_01/vasuki_ev_01.atlas"
+		],
+		"Default": "EV1_Idle_01",
+		"Anim": {
+			"EV1_idle_01": {
+				"skel": "vasuki_ev_01_01.skel",
+				"atlas": "vasuki_ev_01.atlas"
+			},
+			"EV1_idle_02": {
+				"skel": "vasuki_ev_01_02.skel",
+				"atlas": "vasuki_ev_01.atlas"
+			},
+			"EV1_idle_03": {
+				"skel": "vasuki_ev_01_03.skel",
+				"atlas": "vasuki_ev_01.atlas"
+			},
+			"EV1_idle_04": {
+				"skel": "vasuki_ev_01_04.skel",
+				"atlas": "vasuki_ev_01.atlas"
+			},
+			"EV1_idle_05": {
+				"skel": "vasuki_ev_01_05.skel",
+				"atlas": "vasuki_ev_01.atlas"
+			}
+		}
+	},
+	"kuzumi_miona_ev_01": {
+		"Assets": [
+			"data/spine/kuzumi_miona_ev_01/kuzumi_miona_ev_01.png",
+			"data/spine/kuzumi_miona_ev_01/kuzumi_miona_ev_012.png",
+			"data/spine/kuzumi_miona_ev_01/kuzumi_miona_ev_013.png",
+			"data/spine/kuzumi_miona_ev_01/kuzumi_miona_ev_01_01.skel",
+			"data/spine/kuzumi_miona_ev_01/kuzumi_miona_ev_01_02.skel",
+			"data/spine/kuzumi_miona_ev_01/kuzumi_miona_ev_01_03.skel",
+			"data/spine/kuzumi_miona_ev_01/kuzumi_miona_ev_01_04.skel",
+			"data/spine/kuzumi_miona_ev_01/kuzumi_miona_ev_01_05.skel",
+			"data/spine/kuzumi_miona_ev_01/kuzumi_miona_ev_01.atlas"
+		],
+		"Default": "EV1_Idle_01",
+		"Anim": {
+			"EV1_idle_01": {
+				"skel": "kuzumi_miona_ev_01_01.skel",
+				"atlas": "kuzumi_miona_ev_01.atlas"
+			},
+			"EV1_idle_02": {
+				"skel": "kuzumi_miona_ev_01_02.skel",
+				"atlas": "kuzumi_miona_ev_01.atlas"
+			},
+			"EV1_idle_03": {
+				"skel": "kuzumi_miona_ev_01_03.skel",
+				"atlas": "kuzumi_miona_ev_01.atlas"
+			},
+			"EV1_idle_04": {
+				"skel": "kuzumi_miona_ev_01_04.skel",
+				"atlas": "kuzumi_miona_ev_01.atlas"
+			},
+			"EV1_idle_05": {
+				"skel": "kuzumi_miona_ev_01_05.skel",
+				"atlas": "kuzumi_miona_ev_01.atlas"
+			}
+		}
+	},
 	"hinagiku_momota_ev_01": {
 		"Assets": [
 			"data/spine/hinagiku_momota_ev_01/hinagiku_momota_ev_01.png",
