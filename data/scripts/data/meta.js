@@ -34332,7 +34332,8 @@ var SCENE = {
             misc:[]
         },
         ignoredCharacterTags:[],
-        nextScene:{normal: "1036_2", animated: "1036_3"}
+        nextScene:{normal: "1036_2", animated: "1036_3"},
+        artistOverwrite: ARTIST.KIRIN_P
     },
     "1036_2":{
         character:[CHAR.RAGNAROK, CHAR.FUUMA_KOTAROU],
@@ -34345,6 +34346,7 @@ var SCENE = {
             misc:[]
         },
         ignoredCharacterTags:[],
+        artistOverwrite: ARTIST.KIRIN_P
     },
     "1036_3":{
         character:[CHAR.RAGNAROK, CHAR.FUUMA_KOTAROU],
@@ -34357,7 +34359,8 @@ var SCENE = {
             misc:[TAG.ANIMATED]
         },
         ignoredCharacterTags:[],
-        assetDir:"1036_2"
+        assetDir:"1036_2",
+        artistOverwrite: ARTIST.KIRIN_P
     },
     "1037":{
         character:CHAR.KUMARA_JUN,
@@ -34708,6 +34711,91 @@ var SCENE = {
         ignoredCharacterTags:[],
         assetDir:"1047_1",
         nextScene:"1047_2"
+    },
+    "1048_1":{
+        character:CHAR.HIDOU_RIRI,
+        tags:{
+            female:[
+                TAG.SLING_BIKINI, TAG.BREASTS_OUT,
+                TAG.VIBRATOR, TAG.ROTOR, TAG.AFFIXED_DILDO, TAG.BUKKAKE, TAG.AHEGAO, TAG.SQUIRTING
+            ],
+            male:[],
+            location:[TAG.INSIDE, TAG.SEMI_PUBLIC],
+            misc:[]
+        },
+        ignoredCharacterTags:[],
+        nextScene:{normal: "1048_2", animated: "1048_3"}
+    },
+    "1048_2":{
+        character:CHAR.HIDOU_RIRI,
+        tags:{
+            female:[
+                TAG.BIKINI, TAG.PANTIES_PUSHED_TO_SIDE,
+                TAG.NIPPLE_CUTOUTS, TAG.VAGINAL_SEX, TAG.USED_CONDOMS_EXPOSITION, TAG.AHEGAO, TAG.SQUIRTING, TAG.NAKADASHI, TAG.DICK_CLEANING_BLOWJOB
+            ],
+            male:[],
+            location:[TAG.BEDROOM, TAG.ON_BED, TAG.PRIVATE],
+            misc:[]
+        },
+        ignoredCharacterTags:[]
+    },
+    "1048_3":{
+        character:CHAR.HIDOU_RIRI,
+        tags:{
+            female:[
+                TAG.BIKINI, TAG.PANTIES_PUSHED_TO_SIDE,
+                TAG.NIPPLE_CUTOUTS, TAG.VAGINAL_SEX, TAG.USED_CONDOMS_EXPOSITION, TAG.AHEGAO, TAG.SQUIRTING, TAG.NAKADASHI, TAG.DICK_CLEANING_BLOWJOB
+            ],
+            male:[],
+            location:[TAG.BEDROOM, TAG.ON_BED, TAG.PRIVATE],
+            misc:[TAG.ANIMATED]
+        },
+        ignoredCharacterTags:[],
+        assetDir:"1048_2"
+    },
+    "1049_1":{
+        character:[CHAR.MIZUKI_SHIRANUI, CHAR.UEHARA_SHIKANOSUKE],
+        tags:{
+            female:[
+                TAG.COMPLETELY_NAKED,
+                TAG.HANDJOB, TAG.BREAST_SUCKING, TAG.KISSING, TAG.CUM_LICKUP
+            ],
+            male:[TAG.COMPLETELY_NAKED],
+            location:[TAG.BATHROOM, TAG.PRIVATE],
+            misc:[]
+        },
+        ignoredCharacterTags:[],
+        nextScene:{normal: "1049_2", animated: "1049_3"},
+        artistOverwrite: ARTIST.KAGAMI_HIROTAKA
+    },
+    "1049_2":{
+        character:[CHAR.MIZUKI_SHIRANUI, CHAR.UEHARA_SHIKANOSUKE],
+        tags:{
+            female:[
+                TAG.COMPLETELY_NAKED,
+                TAG.SPREAD_PUSSY, TAG.CUNNILINGUS, TAG.BLOWJOB, TAG.PAIZURI, TAG.BUKKAKE, TAG.VAGINAL_SEX, TAG.BREAST_GROPING, TAG.AHEGAO, TAG.NAKADASHI
+            ],
+            male:[TAG.COMPLETELY_NAKED],
+            location:[TAG.BEDROOM, TAG.ON_BED, TAG.PRIVATE],
+            misc:[TAG.CUT_IN_XRAY]
+        },
+        ignoredCharacterTags:[],
+        artistOverwrite: ARTIST.KAGAMI_HIROTAKA
+    },
+    "1049_3":{
+        character:[CHAR.MIZUKI_SHIRANUI, CHAR.UEHARA_SHIKANOSUKE],
+        tags:{
+            female:[
+                TAG.COMPLETELY_NAKED,
+                TAG.SPREAD_PUSSY, TAG.CUNNILINGUS, TAG.BLOWJOB, TAG.PAIZURI, TAG.BUKKAKE, TAG.VAGINAL_SEX, TAG.BREAST_GROPING, TAG.AHEGAO, TAG.NAKADASHI
+            ],
+            male:[TAG.COMPLETELY_NAKED],
+            location:[TAG.BEDROOM, TAG.ON_BED, TAG.PRIVATE],
+            misc:[TAG.CUT_IN_XRAY, TAG.ANIMATED]
+        },
+        ignoredCharacterTags:[],
+        assetDir:"1049_2",
+        artistOverwrite: ARTIST.KAGAMI_HIROTAKA
     },
     
 
